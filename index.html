@@ -11,6 +11,11 @@
             text-align: center; 
             margin-top: 5%;
         }
+
+        #cameraContainer {
+            margin-top: 5%;
+            
+        }
     </style>
 </head>
 <body>
@@ -18,8 +23,12 @@
         <h1>Nombre y apellidos</h1>
         <h2>Puntos: 0000</h2>
         <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 2rem;">
-            <button class="btn btn-primary btn-lg">Escanear otra tarjeta</button>
+            <button class="btn btn-primary btn-lg" onclick="scanCard()">Escanear otra tarjeta</button>
+        </div>
+        <div id="cameraContainer">
+            <canvas id="myCanvas"></canvas>
         </div>
     </main>
+    <script src="scripts/script.js"></script>
 </body>
 </html>
