@@ -1,6 +1,8 @@
 let VIDEO = null;
 let CONTEXT = null;
-let CANVAS = null    ;
+let CANVAS = null;
+let SCALER = 1;
+let SIZE = { x: 0, y: 0, width: 0, height: 0 };
 
 function scanCard() {
     if(!('mediaDevices' in navigator) || !('getUserMedia' in navigator.mediaDevices)) {
@@ -21,6 +23,11 @@ function scanCard() {
         VIDEO.play();
 
         VIDEO.onloadeddata = function(){
+            let resizer = SCALER * Math.min(cameraContainer.clientWidth / VIDEO.videoWidth, cameraContainer.clientHeight / VIDEO.videoHeight);
+            SIZE.width = resizer * VIDEO.videoWidth;
+            SIZE.height = resizer * VIDEO.videoHeight;
+            SIZE.x = cameraContainer.clientWidth/2 - SIZE.width/2;
+            SIZE.y = cameraContainer.clientHeight/2 - SIZE.height/2;
             updateCanvas();
         }
     }).catch( function(err) {
@@ -29,6 +36,6 @@ function scanCard() {
 }
 
 function updateCanvas() {
-    CONTEXT.drawImage(VIDEO, 0, 0);
+    CONTEXT.drawImage(VIDEO, SIZE.x, SIZE.y, SIZE.width, SIZE.height);
     window.requestAnimationFrame(updateCanvas);
 }
