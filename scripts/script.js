@@ -1,41 +1,25 @@
-let VIDEO = null;
-let CONTEXT = null;
-let CANVAS = null;
-let SCALER = 1;
-let SIZE = { x: 0, y: 0, width: 0, height: 0 };
+const script = document.createElement("script");
+script.src = "./node_modules/html5-qrcode/html5-qrcode.min.js";
+document.head.prepend(script);
 
-function scanCard() {
-    if(!('mediaDevices' in navigator) || !('getUserMedia' in navigator.mediaDevices)) {
-        alert("Tu navegador no soporta esta funcionalidad");
-        return;
-    }
-    let cameraContainer = document.getElementById("cameraContainer");
-    CANVAS = document.getElementById("myCanvas");
-    CONTEXT = CANVAS.getContext("2d");
-    
-    CANVAS.width = cameraContainer.clientWidth;
-    CANVAS.height = cameraContainer.clientHeight;
+let SCANNER;
 
-    let promise = navigator.mediaDevices.getUserMedia({ video: true })
-    promise.then(function(signal) {
-        VIDEO = document.createElement("video");
-        VIDEO.srcObject = signal;
-        VIDEO.play();
-
-        VIDEO.onloadeddata = function(){
-            let resizer = SCALER * Math.min(cameraContainer.clientWidth / VIDEO.videoWidth, cameraContainer.clientHeight / VIDEO.videoHeight);
-            SIZE.width = resizer * VIDEO.videoWidth;
-            SIZE.height = resizer * VIDEO.videoHeight;
-            SIZE.x = cameraContainer.clientWidth/2 - SIZE.width/2;
-            SIZE.y = cameraContainer.clientHeight/2 - SIZE.height/2;
-            updateCanvas();
-        }
-    }).catch( function(err) {
-        alert("Error al abrir la camara: " + err);
-    });
+function onScanSuccess(decodedText, decodedResult) {
+    // handle the scanned code as you like, for example:
+    SCANNER.clear();
+    alert(`Code matched = ${decodedText}`, decodedResult);
+  }
+  
+function onScanFailure(error) {
+    // handle scan failure, usually better to ignore and keep scanning.
+    // for example:
+    console.warn(`Code scan error = ${error}`);
 }
 
-function updateCanvas() {
-    CONTEXT.drawImage(VIDEO, SIZE.x, SIZE.y, SIZE.width, SIZE.height);
-    window.requestAnimationFrame(updateCanvas);
+function scanCard() {
+    SCANNER = new Html5QrcodeScanner(
+      "reader",
+      { fps: 10, qrbox: {width: 250, height: 250} },
+      /* verbose= */ false);
+      SCANNER.render(onScanSuccess, onScanFailure);
 }
