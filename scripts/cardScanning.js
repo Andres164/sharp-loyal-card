@@ -1,18 +1,20 @@
+import { addToCustomerPoints } from "./updateCustomerPoints";
+
 const script = document.createElement("script");
-script.src = "./node_modules/html5-qrcode/html5-qrcode.min.js";
+script.src = "include.js";
 document.head.prepend(script);
+includeFile("./node_modules/html5-qrcode/html5-qrcode.min.js");
+includeFile("updateCustomerPoints.js");
 
 let SCANNER;
 
 function onScanSuccess(decodedText, decodedResult) {
-    // handle the scanned code as you like, for example:
     SCANNER.clear();
-    alert(`Code matched = ${decodedText}`, decodedResult);
+    let customer = JSON.parse(addToCustomerPoints(10, decodedText));
+    alert(`${customer.name} ahora tiene ${customer.total_points} puntos`, decodedResult);
   }
   
 function onScanFailure(error) {
-    // handle scan failure, usually better to ignore and keep scanning.
-    // for example:
     console.warn(`Code scan error = ${error}`);
 }
 
