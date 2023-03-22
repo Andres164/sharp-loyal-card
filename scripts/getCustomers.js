@@ -1,4 +1,4 @@
-export function getCustomer(customerId) {
+function getCustomer(customerId) {
     fetch(`https://api.loyverse.com/v1.0/customers/${customerID}`).then(res => {
         return res.json();
     })

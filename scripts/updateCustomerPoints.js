@@ -1,15 +1,9 @@
-import { getCustomer } from "./getCustomers";
-
-const script = document.createElement("script");
-script.src = "include.js";
-document.head.prepend(script);
-
-includeFile('getCustomer.js');
+includeFile("scripts/getCustomers.js");
 
 let TOKEN_NAME = '';
 let AUTHORIZATION_TOKEN = '';
 
-export function addToCustomerPoints(pointsToAdd, customerId) {
+function addToCustomerPoints(pointsToAdd, customerId) {
     let customer = JSON.parse(getCustomer(customerId));
 
     fetch(`https://api.loyverse.com/v1.0/customers/${customerId}`, {

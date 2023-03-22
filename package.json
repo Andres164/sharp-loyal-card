@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/Andres164/sharp-loyal-card#readme",
   "dependencies": {
+    "bootstrap": "5.0",
+    "depend": "^0.0.1",
     "html5-qrcode": "^2.3.7"
   }
 }
