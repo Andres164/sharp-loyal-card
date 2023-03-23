@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informacion del cliente</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <style>
+        main { 
+            margin-top: 5%;
+            padding-left: 30%;
+            padding-right: 30%;
+        }
+        form {
+            height: 70%;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <form class="shadow p-3 mb-5 bg-body rounded">
+            <div class="mb-3">
+              <label for="id_cliente" class="form-label">Email address</label>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" id="id_cliente">
+                <button class="btn btn-outline-primary" type="button">Buscar</button>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <button type="submit" class="btn btn-primary">Enlazar cliente con esta tarjeta</button>
+        </form>
+    </main>
+</body>
+</html>

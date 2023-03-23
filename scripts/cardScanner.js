@@ -15,7 +15,7 @@ function onScanFailure(error) {
 
 function scanCard() {
   SCANNER = new Html5QrcodeScanner(
-    "reader",
+    "scanner",
     { fps: 10, qrbox: {width: 250, height: 250} },
     /* verbose= */ false);
     
