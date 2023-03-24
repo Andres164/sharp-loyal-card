@@ -6,8 +6,13 @@ function fillCustomerFormData() {
         return;
     
     let customer = getCustomer(id_customer);
+    // If the customer wasnt found alert to the user in some way
     if(customer == undefined)
         return;
     JSON.parse(customer);
-    document.getElementById("nombre").value = customer.name;
+    dicument.getElementById("id_customer").value = customer.id;
+    document.getElementById("phone_number").value = customer.phone_number;
+    document.getElementById("address").value = customer.address;
+    document.getElementById("total_points").value = customer.total_points;
+    // Fetch the date of birth in the database
 }
