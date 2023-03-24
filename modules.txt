@@ -1,0 +1,16 @@
+QR00001
+
+qrCodeScanner.js
+customerForm
+
+
+Card-CustomerLink:
+scanner
+makeCard-CustomerLink
+
+
+
+charge points to a card:
+scanner
+fillCustomerData
+addToCustomerPoints

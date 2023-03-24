@@ -10,31 +10,58 @@
           href="node_modules/bootstrap/dist/css/bootstrap.css"/>
     <style>
         main { 
-            margin-top: 5%;
+            margin-top: 2%;
             padding-left: 30%;
             padding-right: 30%;
         }
         form {
             height: 70%;
         }
+        .banner {
+            background-color: maroon;
+            padding: 4%;
+        }
     </style>
 </head>
 <body>
     <main class="container">
+        <div class="container rounded-top banner">
+            <img class="" src="IMGs/librePensador2.webp" height="19%" width="19%">
+        </div>
         <form class="shadow p-3 mb-5 bg-body rounded">
             <div class="mb-3">
-              <label for="id_cliente" class="form-label">Email address</label>
+              <label for="id_customer" class="form-label">Email del cliente</label>
               <div class="input-group mb-3">
-                <input type="email" class="form-control" id="id_cliente">
-                <button class="btn btn-outline-primary" type="button">Buscar</button>
+                <input type="email" class="form-control" id="id_customer" required>
+                <button onclick="fillCustomerFormData()" class="btn btn-outline-primary" type="submit">Buscar</button>
               </div>
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
+              <label for="name" class="form-label">Nombre del cliente</label>
+              <input type="text" class="form-control" id="name" disabled>
             </div>
-            <button type="submit" class="btn btn-primary">Enlazar cliente con esta tarjeta</button>
+            <div class="mb-3">
+                <label for="phone_number" class="form-label">Numero celular</label>
+                <input type="text" class="form-control" id="phone_number" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Direccion</label>
+                <input type="text" class="form-control" id="address" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="total_points" class="form-label">Puntos</label>
+                <input type="text" class="form-control" id="total_points" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="date_of_birth" class="form-label">Fecha de nacimiento</label>
+                <input type="date" class="form-control" id="date_of_birth" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" disabled>Enlazar cliente con esta tarjeta</button>
         </form>
     </main>
+    <script src="scripts/include.js"></script>
+    <script src="scripts/fillCustomerData.js"></script>
+    <script src="scripts/linkCustomer-Card.js"></script>
 </body>
 </html>
