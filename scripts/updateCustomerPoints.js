@@ -1,7 +1,5 @@
 includeFile("scripts/getCustomers.js");
-
-let TOKEN_NAME = '';
-let AUTHORIZATION_TOKEN = '';
+includeFile("scripts/apiCredentials");
 
 function addToCustomerPoints(pointsToAdd, customerId) {
     let customer = JSON.parse(getCustomer(customerId));
@@ -20,4 +18,5 @@ function addToCustomerPoints(pointsToAdd, customerId) {
         return res.json();
     })
     .catch(error => console.error(`error while updating customer = ${error}`));
+    alert("¡Ocurrio un error al actualizar los puntos del usuario!");
 }

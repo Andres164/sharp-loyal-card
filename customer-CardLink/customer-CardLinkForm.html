@@ -33,7 +33,7 @@
               <label for="id_customer" class="form-label">Email del cliente</label>
               <div class="input-group mb-3">
                 <input type="email" class="form-control" id="id_customer" required>
-                <button onclick="fillCustomerFormData()" class="btn btn-outline-primary" type="submit">Buscar</button>
+                <button onclick="tryFillCustomerData()" class="btn btn-outline-primary" type="submit">Buscar</button>
               </div>
             </div>
             <div class="mb-3">
@@ -60,6 +60,14 @@
             <button type="submit" class="btn btn-primary" disabled>Enlazar cliente con esta tarjeta</button>
         </form>
     </main>
+    <script>
+        function tryFillCustomerData() {
+            let id_customer = document.getElementById("id_customer").value;
+            if(id_customer == "")
+                return;
+            fillCustomerFormData(id_customer);
+        }
+    </script>
     <script src="../scripts/include.js"></script>
     <script src="../scripts/fillCustomerData.js"></script>
 </body>
