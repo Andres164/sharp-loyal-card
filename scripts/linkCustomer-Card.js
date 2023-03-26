@@ -1,3 +1,0 @@
-function linkCustomer_scanCard() {
-    
-}
