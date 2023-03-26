@@ -1,4 +1,4 @@
-let cafeLibrePensadorAPIAddress = '';
+includeFile("scripts/apiCredentials");
 
 function createCustomer(email, date_of_birth) {
     fetch(`https://${cafeLibrePensadorAPIAddress}/customers`, {

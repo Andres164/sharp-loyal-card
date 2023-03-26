@@ -6,7 +6,9 @@ let SCANNER;
 function onScanSuccess(decodedText, decodedResult) {
   SCANNER.clear();
   sessionStorage.setItem("scannedCardCode", decodedText);
-  window.location.href = rootFolder + sessionStorage.getItem("locationToRedirectOnSuccess");
+  let locationToRedirectOnSuccess = sessionStorage.getItem("locationToRedirectOnSuccess");
+  sessionStorage.removeItem("locationToRedirectOnSuccess");
+  window.location.href = rootFolder + locationToRedirectOnSuccess;
 }
   
 function onScanFailure(error) {

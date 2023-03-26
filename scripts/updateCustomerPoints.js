@@ -19,4 +19,5 @@ function addToCustomerPoints(pointsToAdd, email) {
     })
     .catch(error => console.error(`error while updating customer = ${error}`));
     alert("¡Ocurrio un error al actualizar los puntos del usuario!");
+    return undefined;
 }

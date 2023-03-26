@@ -23,7 +23,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="tryFillCustomerData()">
     <main class="container">
         <div class="container rounded-top banner">
             <img class="" src="../IMGs/librePensador2.webp" height="19%" width="19%">
@@ -31,10 +31,7 @@
         <form class="shadow p-3 mb-5 bg-body rounded" id="customerForm">
             <div class="mb-3">
               <label for="email" class="form-label">Email del cliente</label>
-              <div class="input-group mb-3">
-                <input type="email" class="form-control" id="email" required>
-                <button onclick="tryFillCustomerData()" class="btn btn-outline-primary" type="submit">Buscar</button>
-              </div>
+              <input type="email" class="form-control" id="email" required>
             </div>
             <div class="mb-3">
               <label for="name" class="form-label">Nombre del cliente</label>
@@ -54,27 +51,44 @@
             </div>
             <div class="mb-3">
                 <label for="date_of_birth" class="form-label">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="date_of_birth">
+                <input type="date" class="form-control" id="date_of_birth" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="pointsToAdd" class="form-label">Puntos que se van a añadir</label>
+                <input type="number" class="form-control" id="pointsToAdd">
             </div>
 
-            <button onclick="makeCustomer_CardLink()" type="submit" class="btn btn-primary" id="btnLinkCardAndCusotmer" disabled>Enlazar cliente con esta tarjeta</button>
+            <button onclick="tryUpdateCustomerPoints()" type="submit" class="btn btn-primary" id="btnAddPointsToCard" disabled>Añadir puntos a la tarjeta</button>
         </form>
     </main>
     <script>
         function tryFillCustomerData() {
+            let card_id = sessionStorage.getItem("scannedCardCode");
+            if(!isCardLinked(card_id)) {
+                alert("La tarjeta escaneada no a sido enlazada con un cliente, favor de escanear una tarjeta valida");
+                window.location.href = rootFolder + "addPointsToCard/scanner.html";
+                return;
+            }
+
+            if ( fillCustomerFormData(email) == undefined ) {
+                window.location.href = rootFolder + "addPointsToCard/scanner.html";
+                return;
+            }
+
+            document.getElementById("pointsToAdd").required = true;
+            document.getElementById("btnAddPointsToCard").disabled = false;
+
+        }
+
+        function tryUpdateCustomerPoints() {
             if(!document.getElementById("customerForm").checkValidity())
                 return;
-            
-            let email = document.getElementById("email").value;
-            if ( fillCustomerFormData(email) == undefined )
-                return
-            document.getElementById("date_of_birth").required = true;
-            document.getElementById("btnLinkCardAndCusotmer").disabled = false;
-
+            addToCustomerPoints(document.getElementById("pointsToAdd"), document.getElementById("email"));
         }
     </script>
     <script src="../scripts/include.js"></script>
     <script src="../scripts/fillCustomerData.js"></script>
-    <script src="../scripts/customer-CardLink/makeCustomer-CardLink.js"></script>
+    <script src="../scripts/cardStatus.js"></script>
+    <script src="../scripts/updateCustomerPoints.js"></script>
 </body>
 </html>
