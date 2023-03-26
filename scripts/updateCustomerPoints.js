@@ -1,10 +1,10 @@
 includeFile("scripts/getCustomers.js");
 includeFile("scripts/apiCredentials");
 
-function addToCustomerPoints(pointsToAdd, customerId) {
-    let customer = JSON.parse(getCustomer(customerId));
+function addToCustomerPoints(pointsToAdd, email) {
+    let customer = JSON.parse(getCustomer(email));
 
-    fetch(`https://api.loyverse.com/v1.0/customers/${customerId}`, {
+    fetch(`https://api.loyverse.com/v1.0/customers/${email}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

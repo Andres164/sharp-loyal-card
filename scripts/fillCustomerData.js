@@ -1,13 +1,13 @@
 includeFile("/scripts/getCustomers.js");
 
-function fillCustomerFormData(id_customer) {
-    let customer = getCustomer(id_customer);
+function fillCustomerFormData(email) {
+    let customer = getCustomer(email);
     if(customer === null)
         alert ( "No se encontro ningun cliente con el email ingresado" );
     if(customer == undefined)
-        return;
+        return undefined;
     JSON.parse(customer);
-    document.getElementById("id_customer").value = id_customer;
+    document.getElementById("email").value = email;
     document.getElementById("name").value = customer.name;
     document.getElementById("phone_number").value = customer.phone_number;
     document.getElementById("address").value = customer.address;

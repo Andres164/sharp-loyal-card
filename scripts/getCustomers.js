@@ -1,5 +1,7 @@
-function getCustomer(id_customer) {
-    fetch(`https://api.loyverse.com/v1.0/customers/${id_customer}`, {
+includeFile("scripts/apiCredentials.js");
+
+function getCustomer(email) {
+    fetch(`https://api.loyverse.com/v1.0/customers/${email}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': TOKEN_NAME + ' ' + AUTHORIZATION_TOKEN

@@ -28,11 +28,11 @@
         <div class="container rounded-top banner">
             <img class="" src="../IMGs/librePensador2.webp" height="19%" width="19%">
         </div>
-        <form class="shadow p-3 mb-5 bg-body rounded">
+        <form class="shadow p-3 mb-5 bg-body rounded" id="customerForm">
             <div class="mb-3">
-              <label for="id_customer" class="form-label">Email del cliente</label>
+              <label for="email" class="form-label">Email del cliente</label>
               <div class="input-group mb-3">
-                <input type="email" class="form-control" id="id_customer" required>
+                <input type="email" class="form-control" id="email" required>
                 <button onclick="tryFillCustomerData()" class="btn btn-outline-primary" type="submit">Buscar</button>
               </div>
             </div>
@@ -54,21 +54,27 @@
             </div>
             <div class="mb-3">
                 <label for="date_of_birth" class="form-label">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="date_of_birth" required>
+                <input type="date" class="form-control" id="date_of_birth">
             </div>
 
-            <button type="submit" class="btn btn-primary" disabled>Enlazar cliente con esta tarjeta</button>
+            <button onclick="makeCustomer_CardLink()" type="submit" class="btn btn-primary" id="btnLinkCardAndCusotmer" disabled>Enlazar cliente con esta tarjeta</button>
         </form>
     </main>
     <script>
         function tryFillCustomerData() {
-            let id_customer = document.getElementById("id_customer").value;
-            if(id_customer == "")
+            if(!document.getElementById("customerForm").checkValidity())
                 return;
-            fillCustomerFormData(id_customer);
+            
+            let email = document.getElementById("email").value;
+            if ( fillCustomerFormData(email) == undefined )
+                return
+            document.getElementById("date_of_birth").required = true;
+            document.getElementById("btnLinkCardAndCusotmer").disabled = false;
+
         }
     </script>
     <script src="../scripts/include.js"></script>
     <script src="../scripts/fillCustomerData.js"></script>
+    <script src="../scripts/customer-CardLink/makeCustomer-CardLink.js"></script>
 </body>
 </html>
