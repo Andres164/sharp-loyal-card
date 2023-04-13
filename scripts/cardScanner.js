@@ -3,7 +3,7 @@ includeFile("scripts/updateCustomerPoints.js");
 
 let SCANNER;
 
-function onScanSuccess(decodedText, decodedResult) {
+function onScanSuccess(decodedText) {
   SCANNER.clear();
   sessionStorage.setItem("scannedCardCode", decodedText);
   let locationToRedirectOnSuccess = sessionStorage.getItem("locationToRedirectOnSuccess");

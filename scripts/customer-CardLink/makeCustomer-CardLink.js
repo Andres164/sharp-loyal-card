@@ -1,21 +1,33 @@
 includeFile("scripts/apiCredentials");
 
-function createCustomer(email, date_of_birth) {
-    fetch(`https://${cafeLibrePensadorAPIAddress}/customers`, {
-        method: "POST",
-        headers: { "content-Type": "application/json" },
+async function createCustomer(email, date_of_birth) {
+    try {
+
+        const createCustomerResponse = await fetch(`https://${cafeLibrePensadorAPIAddress}/api/Customers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
+        },
         body: JSON.stringify({
-            email: email,
-            date_of_birth: date_of_birth
+          email: email,
+          date_of_birth: date_of_birth
         })
-    }).catch(erro => console.error(`error while making a new customer = ${error}`));
-    return undefined;
+        });
+    
+      if (!createCustomerResponse.ok)
+        throw new Error(`Error creating customer: ${createCustomerResponse.status}`);
+    } catch (error) {
+        console.error(error);
+        return 1;
+    }
+    return 0;
 }
 
 function makeCustomer_CardLink() {
     let email = document.getElementById("email").value;
     let date_of_birth = document.getElementById("date_of_birth").value;
-    if (createCustomer(email, date_of_birth) == undefined) {
+    if (createCustomer(email, date_of_birth) == 1) {
         alert ("¡Ocurrio un error al crear el cliente!");
         return;
     }
