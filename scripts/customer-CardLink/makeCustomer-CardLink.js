@@ -24,7 +24,7 @@ async function createCustomer(email, date_of_birth) {
     return 0;
 }
 
-function makeCustomer_CardLink() {
+async function makeCustomer_CardLink() {
     let email = document.getElementById("email").value;
     let date_of_birth = document.getElementById("date_of_birth").value;
     if (createCustomer(email, date_of_birth) == 1) {
@@ -32,19 +32,25 @@ function makeCustomer_CardLink() {
         return;
     }
 
-    let scannedCardCode = sessionStorage.getItem("scannedCardCode");
-    fetch(`https://${cafeLibrePensadorAPIAddress}/cards/${scannedCardCode}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-           customerEmail: email
-        })
-    }).then(res => {
-        return res.json();
-    })
-    .catch(error => console.error(`error while making customer-card link = ${error}`));
-    alert("¡Ocurrio un error al crear el enlace cliente-tarjeta!");
-    return undefined;
+    let scannedCardCode = sessionStorage.getItem("scannedCardCode"); // <---
+    try {
+        const linkCardResponse = await fetch(`https://${cafeLibrePensadorAPIAddress}/Cards/${scannedCardCode}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              // Add authentication : 'Authorization': `Bearer ${yourAuthToken}`
+            },
+            body: JSON.stringify({
+              customer_email: email
+            })
+          });
+      
+          if (!linkCardResponse.ok) {
+            throw new Error(`Error linking card: ${linkCardResponse.status}`);
+          }
+    } catch (error) {
+      console.error(error);
+      return 1;
+    }
+    return 0;
 }
