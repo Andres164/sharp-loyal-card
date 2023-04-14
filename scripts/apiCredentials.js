@@ -3,4 +3,4 @@ const TOKEN_NAME = '';
 const AUTHORIZATION_TOKEN = '';
 
 // Libre pensador API
-const cafeLibrePensadorAPIAddress = 'localhost:443';
+const cafeLibrePensadorAPIAddress = 'https://localhost:7068';

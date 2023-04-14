@@ -1,15 +1,17 @@
-includeFile("scripts/apiCredentials.js");
+
 
 function getCustomer(email) {
-    fetch(`https://api.loyverse.com/v1.0/customers/${email}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': TOKEN_NAME + ' ' + AUTHORIZATION_TOKEN
-        }
-    }).then(res => {
-        return res.json();
-    })
-    .catch(error => console.error(`error while fetching customer = ${error}`));
-    alert("¡Ocurrio un error al intentar buscar el cliente!");
-    return undefined;
+    // Example hard-coded customer object
+    const customer = {
+        name: "John Doe",
+        phone_number: "555-1234",
+        address: "123 Main St",
+        total_points: 1000
+    };
+
+    if (email === "johndoe@example.com") {
+        return JSON.stringify(customer);
+    } else {
+        return null;
+    }
 }

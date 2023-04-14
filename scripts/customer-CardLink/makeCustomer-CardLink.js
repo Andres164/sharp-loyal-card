@@ -1,9 +1,9 @@
-includeFile("scripts/apiCredentials");
+
 
 async function createCustomer(email, date_of_birth) {
     try {
 
-        const createCustomerResponse = await fetch(`https://${cafeLibrePensadorAPIAddress}/api/Customers`, {
+        const createCustomerResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Customers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ async function makeCustomer_CardLink() {
 
     let scannedCardCode = sessionStorage.getItem("scannedCardCode"); // <---
     try {
-        const linkCardResponse = await fetch(`https://${cafeLibrePensadorAPIAddress}/Cards/${scannedCardCode}`, {
+        const linkCardResponse = await fetch(`${cafeLibrePensadorAPIAddress}/Cards/${scannedCardCode}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
