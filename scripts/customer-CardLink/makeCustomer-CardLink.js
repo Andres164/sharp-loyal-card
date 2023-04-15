@@ -2,8 +2,7 @@
 
 async function createCustomer(email, date_of_birth) {
     try {
-
-        const createCustomerResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Customers`, {
+        const createCustomerResponse = await fetch(`${cafeLibrePensadorAPIAddress}api/Customers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

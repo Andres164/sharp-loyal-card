@@ -1,5 +1,4 @@
 includeFile("scripts/getCustomers.js");
-includeFile("scripts/apiCredentials");
 
 function addToCustomerPoints(pointsToAdd, email) {
     let customer = JSON.parse(getCustomer(email));

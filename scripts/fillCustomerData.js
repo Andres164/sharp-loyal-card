@@ -1,4 +1,4 @@
-includeFile("/scripts/getCustomers.js");
+includeFile("scripts/getCustomers.js");
 
 function fillCustomerFormData(email) {
     let customer = getCustomer(email);

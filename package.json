@@ -4,6 +4,7 @@
   "description": "A loyalty card reader for loyverse",
   "main": "index.html",
   "scripts": {
+    "start": "http-server -c-1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,5 +27,8 @@
     "bootstrap": "5.0",
     "depend": "^0.0.1",
     "html5-qrcode": "^2.3.7"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }

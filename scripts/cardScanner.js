@@ -3,14 +3,14 @@ includeFile("scripts/updateCustomerPoints.js");
 
 let SCANNER;
 
-function onScanSuccess(decodedText) {
+function onScanSuccess(decodedText, decodedResult) {
   SCANNER.clear();
   sessionStorage.setItem("scannedCardCode", decodedText);
   let locationToRedirectOnSuccess = sessionStorage.getItem("locationToRedirectOnSuccess");
   sessionStorage.removeItem("locationToRedirectOnSuccess");
   window.location.href = rootFolder + locationToRedirectOnSuccess;
 }
-  
+
 function onScanFailure(error) {
   console.warn(`Code scan error = ${error}`);
 }
