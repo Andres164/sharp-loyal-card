@@ -1,4 +1,5 @@
 includeFile("scripts/getCustomers.js");
+includeFile("scripts/getCard.js");
 
 function fillCustomerFormData(email) {
     let customer = getCustomer(email);
@@ -13,4 +14,8 @@ function fillCustomerFormData(email) {
     document.getElementById("total_points").value = customer.total_points;
     return "Success";
     // Fetch the date of birth in the local database if the user doesn't exist, return
+}
+
+async function fillCustomerFormData() {
+    const card = getCard(sessionStorage.)
 }

@@ -5,7 +5,7 @@ async function createCustomer(email, date_of_birth) {
         const createCustomerResponse = await fetch(`${cafeLibrePensadorAPIAddress}api/Customers`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
           //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
         },
         body: JSON.stringify({

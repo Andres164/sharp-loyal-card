@@ -1,9 +1,19 @@
-function getCard(card_id) {
-    fetch(`https://${cafeLibrePensadorAPIAddress}/cards/${card_id}`)
-    .then( res => {
-        return res.json();
-    })
-    .catch(error => console.error(`error while fetching card = ${error}`));
-    alert("¡Ocurrio un error al buscar la tarjeta!");
-    return undefined;
+async function getCard(card_id) {
+    try {
+        const getCardResponse = await fetch(`https://${cafeLibrePensadorAPIAddress}/cards/${card_id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
+            },
+            body: {}
+        }) 
+
+        if(!getCardResponse.ok)
+            throw new Error(`Error getting card: ${createCustomerResponse.status}`);   
+    } catch (error) {
+        console.error(error);
+        return 1;
+    }
+    return 0;
 }
