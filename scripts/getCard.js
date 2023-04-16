@@ -10,10 +10,10 @@ async function getCard(card_id) {
         }) 
 
         if(!getCardResponse.ok)
-            throw new Error(`Error getting card: ${createCustomerResponse.status}`);   
+            throw new Error(`Error getting card: ${createCustomerResponse.status}`);
+        return JSON.parse(getCardResponse.body);
     } catch (error) {
         console.error(error);
-        return 1;
+        return null;
     }
-    return 0;
 }
