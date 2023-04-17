@@ -1,4 +1,4 @@
-const rootFolder = document.location.origin + "/";
+const rootFolder = document.location.origin + "/sharp-loyal-card/";
 
 function includeFile(fileLocation) {
     const script = document.createElement("script");

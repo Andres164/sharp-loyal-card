@@ -17,12 +17,19 @@ function fillCustomerFormData(email) {
     // Fetch the date of birth in the local database if the user doesn't exist, return
 }
 
-function fillCustomerFormData() {
+document.addEventListener("DOMContentLoaded", () => {
     const card_id = sessionStorage.getItem("scannedCardCode");
-    const card = getCard(card_id);
-    if(card === null) {
-        alert ( "No se encontro ninguna tarjeta con el QR escaneado" );
-        return;
+    if (card_id) {
+      fillCustomerFormDataByCardId(card_id);
     }
-    fillCustomerFormData(card.customer_email);
+    console.log("Theres no QR code scanned");
+  });
+  
+async function fillCustomerFormDataByCardId(card_id) {
+  const card = await getCard(card_id);
+  if (card === null) {
+    alert("No se encontro ninguna tarjeta con el QR escaneado");
+    return;
+  }
+  fillCustomerFormData(card.customer_email);
 }

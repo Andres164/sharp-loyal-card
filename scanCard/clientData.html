@@ -23,12 +23,12 @@
         }
     </style>
 </head>
-<body onload="fillCustomerFormData()">
+<body>
     <main class="container">
         <div class="container rounded-top banner">
             <img class="" src="../IMGs/librePensador2.webp" height="19%" width="19%">
         </div>
-        <form class="shadow p-3 mb-5 bg-body rounded" action="scanCard.html">
+        <form class="shadow p-3 mb-5 bg-body rounded">
             <div class="mb-3">
               <label for="id_customer" class="form-label">Email del cliente</label>
               <input type="email" class="form-control" id="id_customer" disabled>
@@ -54,11 +54,16 @@
                 <input type="date" class="form-control" id="date_of_birth" disabled>
             </div>
 
-            <button type="submit" class="btn btn-primary" disabled>Escanear otra tarjeta</button>
+            <button type="button" class="btn btn-primary" onclick="goBack()">Escanear otra tarjeta</button>
         </form>
     </main>
     <script src="../scripts/include.js"></script>
     <script src="../scripts/fillCustomerData.js"></script>
     <script src="../scripts/apiCredentials.js"></script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
