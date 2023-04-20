@@ -1,4 +1,4 @@
-async function getCard(card_id) {
+export async function getCard(card_id) {
     try {
         const getCardResponse = await fetch(`https://${cafeLibrePensadorAPIAddress}/cards/${card_id}`, {
             method: 'POST',

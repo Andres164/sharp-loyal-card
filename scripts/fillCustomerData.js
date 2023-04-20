@@ -1,5 +1,5 @@
-includeFile("scripts/getCustomers.js");
-includeFile("scripts/getCard.js");
+import { getCard } from "./getCard.js";
+import { getCustomer } from "./getCustomers.js";
 
 function fillCustomerFormData(email) {
     let customer = getCustomer(email);

@@ -1,6 +1,3 @@
-includeFile("node_modules/html5-qrcode/html5-qrcode.min.js");
-includeFile("scripts/updateCustomerPoints.js");
-
 let SCANNER;
 
 function onScanSuccess(decodedText, decodedResult) {
@@ -15,7 +12,7 @@ function onScanFailure(error) {
   console.warn(`Code scan error = ${error}`);
 }
 
-function scanCardAndRedirectOnSucces(newLocation) {
+export function scanCardAndRedirectOnSucces(newLocation) {
   SCANNER = new Html5QrcodeScanner(
     "scanner",
     { fps: 10, qrbox: {width: 250, height: 250} },

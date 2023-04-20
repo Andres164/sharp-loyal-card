@@ -1,6 +1,4 @@
-
-
-function getCustomer(email) {
+export function getCustomer(email) {
     // Example hard-coded customer object
     const customer = {
         name: "John Doe",
@@ -9,7 +7,7 @@ function getCustomer(email) {
         total_points: 1000
     };
 
-    if (email === "johndoe@example.com") {
+    if (email === "Andres@gmail.com") {
         return JSON.stringify(customer);
     } else {
         return null;
