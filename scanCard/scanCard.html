@@ -14,13 +14,14 @@
         }
     </style>
 </head>
-<body onload="scanCardAndRedirectOnSucces('scanCard/clientData.html')">
+<body>
     <main class="container align-self-center">
         <div id="scanner" width="600px"></div>
     </main>
-    
-    <script src="../scripts/include.js"></script>
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-    <script type="module"> import { scanCardAndRedirectOnSucces } from './scripts/cardScanner.js'; </script>
+    <script src="../node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+    <script type="module">
+        import { scanCardAndRedirectOnSuccess } from "../scripts/cardScanner.js"; 
+        scanCardAndRedirectOnSuccess('scanCard/clientData.html');
+    </script>
 </body>
 </html>

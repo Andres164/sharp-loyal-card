@@ -8,7 +8,7 @@ export function getCustomer(email) {
     };
 
     if (email === "Andres@gmail.com") {
-        return JSON.stringify(customer);
+        return customer;
     } else {
         return null;
     }

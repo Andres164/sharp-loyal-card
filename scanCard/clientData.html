@@ -31,7 +31,7 @@
         <form class="shadow p-3 mb-5 bg-body rounded">
             <div class="mb-3">
               <label for="id_customer" class="form-label">Email del cliente</label>
-              <input type="email" class="form-control" id="id_customer" disabled>
+              <input type="email" class="form-control" id="email" disabled>
             </div>
             <div class="mb-3">
               <label for="name" class="form-label">Nombre del cliente</label>
@@ -57,9 +57,8 @@
             <button type="button" class="btn btn-primary" onclick="goBack()">Escanear otra tarjeta</button>
         </form>
     </main>
-    <script src="../scripts/include.js"></script>
-    <script type="module" src="../scripts/fillCustomerData.js"></script>
     <script src="../scripts/apiCredentials.js"></script>
+    <script type="module" src="../scripts/fillCustomerData.js"></script>
     <script>
         function goBack() {
             window.history.back();

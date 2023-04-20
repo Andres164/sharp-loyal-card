@@ -1,3 +1,4 @@
+const rootFolder = document.location.origin + "/sharp-loyal-card/";
 let SCANNER;
 
 function onScanSuccess(decodedText, decodedResult) {
@@ -12,7 +13,7 @@ function onScanFailure(error) {
   console.warn(`Code scan error = ${error}`);
 }
 
-export function scanCardAndRedirectOnSucces(newLocation) {
+export function scanCardAndRedirectOnSuccess(newLocation) {
   SCANNER = new Html5QrcodeScanner(
     "scanner",
     { fps: 10, qrbox: {width: 250, height: 250} },
