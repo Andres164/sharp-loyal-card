@@ -1,15 +1,17 @@
-export function getCustomer(email) {
-    // Example hard-coded customer object
-    const customer = {
-        name: "John Doe",
-        phone_number: "555-1234",
-        address: "123 Main St",
-        total_points: 1000
-    };
-
-    if (email === "Andres@gmail.com") {
-        return customer;
-    } else {
+export async function getCustomer(email) {
+    try {
+        const getCustomerRespons = await fetch(`${cafeLibrePensadorAPIAddress}/api/customers/${email}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+                //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
+            }
+        });
+        if(!getCustomerRespons.ok)
+            throw new Error(`Error getting customer: ${getCustomerRespons.status}`);
+        return getCustomerRespons.json();
+    } catch (error) {
+        console.error(error);
         return null;
     }
 }

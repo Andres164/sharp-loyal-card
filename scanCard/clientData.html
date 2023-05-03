@@ -51,18 +51,18 @@
             </div>
             <div class="mb-3">
                 <label for="date_of_birth" class="form-label">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="date_of_birth" disabled>
+                <input type="text" class="form-control" id="date_of_birth" disabled>
             </div>
 
             <button type="button" class="btn btn-primary" onclick="goBack()">Escanear otra tarjeta</button>
         </form>
     </main>
-    <script src="../scripts/apiCredentials.js"></script>
-    <script type="module" src="../scripts/fillCustomerData.js"></script>
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
+    <script src="../scripts/apiCredentials.js"></script>
+    <script type="module" src="../scripts/scanCard/initCustomerData.js"></script>
 </body>
 </html>
