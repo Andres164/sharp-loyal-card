@@ -1,15 +1,18 @@
 export async function getCustomer(email) {
     try {
-        const getCustomerRespons = await fetch(`${cafeLibrePensadorAPIAddress}/api/customers/${email}`, {
+        const getCustomerResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/customers/${email}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json'
                 //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
             }
         });
-        if(!getCustomerRespons.ok)
-            throw new Error(`Error getting customer: ${getCustomerRespons.status}`);
-        return getCustomerRespons.json();
+        if(getCustomerResponse.status >= 500) 
+            throw new Error(`Error getting customer: ${getCustomerResponse.status}`);
+        if(getCustomerResponse.status >= 400)
+            return null;
+        const customerData = await getCustomerResponse.json();
+        return customerData;
     } catch (error) {
         console.error(error);
         return null;

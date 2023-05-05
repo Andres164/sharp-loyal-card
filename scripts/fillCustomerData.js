@@ -1,12 +1,14 @@
 import { getCard } from "./getCard.js";
 import { getCustomer } from "./getCustomers.js";
+import { getCustomerFromLoyverse } from "./getCustomerFromLoyverse.js";
 
-async function fillCustomerFormData(email) {
+export async function fillCustomerFormData(email) {
     let customer = await getCustomer(email);
     if(customer === null)
-        alert ( "No se encontro ningun cliente con el email: " + email );
-    if(customer == undefined)
-        return undefined;
+      customer = await getCustomerFromLoyverse(email);
+    if(customer == null)
+      return null;
+
     document.getElementById("email").value = email;
     document.getElementById("name").value = customer.name;
     document.getElementById("phone_number").value = customer.phone;

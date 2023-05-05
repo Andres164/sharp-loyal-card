@@ -33,7 +33,7 @@
               <label for="email" class="form-label">Email del cliente</label>
               <div class="input-group mb-3">
                 <input type="email" class="form-control" id="email" required>
-                <button onclick="tryFillCustomerData()" class="btn btn-outline-primary" type="submit">Buscar</button>
+                <button class="btn btn-outline-primary" type="submit">Buscar</button>
               </div>
             </div>
             <div class="mb-3">
@@ -60,22 +60,8 @@
             <button onclick="makeCustomer_CardLink()" type="submit" class="btn btn-primary" id="btnLinkCardAndCusotmer" disabled>Enlazar cliente con esta tarjeta</button>
         </form>
     </main>
-    <script>
-        function tryFillCustomerData() {
-            if(!document.getElementById("customerForm").checkValidity())
-                return;
-            
-            let email = document.getElementById("email").value;
-            if ( fillCustomerFormData(email) == undefined )
-                return
-            document.getElementById("date_of_birth").required = true;
-            document.getElementById("btnLinkCardAndCusotmer").disabled = false;
-
-        }
-    </script>
-    <script src="../scripts/include.js"></script>
-    <script src="../scripts/fillCustomerData.js"></script>
-    <script src="../scripts/customer-CardLink/makeCustomer-CardLink.js"></script>
     <script src="../scripts/apiCredentials.js"></script>
+    <script src="../scripts/customer-CardLink/makeCustomer-CardLink.js"></script>
+    <script type="module" src="../scripts/customer-CardLink/tryFillCustomerData.js"></script>
 </body>
 </html>
