@@ -19,9 +19,17 @@
         <div id="scanner" width="600px"></div>
     </main>
     <script src="../node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+    <script src="../scripts/apiCredentials.js"></script>
     <script type="module">
         import { scanCardAndRedirectOnSuccess } from "../scripts/cardScanner.js"; 
-        scanCardAndRedirectOnSuccess('customer-CardLink/customer-CardLinkForm.html');
+        async function cardIsntLinkedToCustomer(card) {
+            if(card.customerEmail == null)
+                return true;
+            alert("Esta tarjeta ya esta enlazada con un cliente");
+            return false
+        }
+
+        scanCardAndRedirectOnSuccess('customer-CardLink/customer-CardLinkForm.html', cardIsntLinkedToCustomer);
     </script>
 </body>
 </html>

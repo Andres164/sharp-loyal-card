@@ -1,7 +1,21 @@
+import { getCard } from "./getCard.js";
 const rootFolder = document.location.origin + "/sharp-loyal-card/";
 let SCANNER;
 
-function onScanSuccess(decodedText, decodedResult) {
+async function onScanSuccess(decodedText, decodedResult, shouldRedirect) {
+  const getCardResult = await getCard(decodedText);
+  if(getCardResult === undefined) {
+    alert("Se encontro un error al buscar la tarjeta escaneada");
+    return;
+  }
+  if(getCardResult === null) {
+    alert("La tarjeta escaneada no existe");
+    return;
+  }
+  
+  const shouldProceed = typeof shouldRedirect === 'function' ? await shouldRedirect(getCardResult) : true;
+  if(!shouldProceed)
+    return;
   SCANNER.clear();
   sessionStorage.setItem("scannedCardCode", decodedText);
   let locationToRedirectOnSuccess = sessionStorage.getItem("locationToRedirectOnSuccess");
@@ -13,11 +27,11 @@ function onScanFailure(error) {
   console.warn(`Code scan error = ${error}`);
 }
 
-export function scanCardAndRedirectOnSuccess(newLocation) {
+export function scanCardAndRedirectOnSuccess(newLocation, shouldRedirect = () => true) {
   SCANNER = new Html5QrcodeScanner(
     "scanner",
     { fps: 10, qrbox: {width: 250, height: 250} },
     /* verbose= */ false);
   sessionStorage.setItem("locationToRedirectOnSuccess", newLocation);
-  SCANNER.render(onScanSuccess, onScanFailure);
+  SCANNER.render((decodedText, decodedResult) => onScanSuccess(decodedText, decodedResult, shouldRedirect), onScanFailure);
 }
