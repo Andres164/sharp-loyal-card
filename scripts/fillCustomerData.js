@@ -9,6 +9,7 @@ export async function fillCustomerFormData(email) {
     if(customer == null)
       return null;
 
+    sessionStorage.setItem("loyverseCustomerId", customer.loyverseCustomerId);
     document.getElementById("email").value = email;
     document.getElementById("name").value = customer.name;
     document.getElementById("phone_number").value = customer.phone;

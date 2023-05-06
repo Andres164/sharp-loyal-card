@@ -1,6 +1,6 @@
 
 
-async function createCustomer(email, date_of_birth) {
+async function createCustomer(loyverseCustomerId, email, date_of_birth) {
     try {
         const createCustomerResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Customers`, {
         method: 'POST',
@@ -9,8 +9,9 @@ async function createCustomer(email, date_of_birth) {
           //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
         },
         body: JSON.stringify({
+          loyverseCustomerId: loyverseCustomerId,
           email: email,
-          date_of_birth: date_of_birth
+          dateOfBirth: date_of_birth
         })
         });
     
@@ -24,24 +25,26 @@ async function createCustomer(email, date_of_birth) {
 }
 
 async function makeCustomer_CardLink() {
-    let email = document.getElementById("email").value;
-    let date_of_birth = document.getElementById("date_of_birth").value;
-    if (createCustomer(email, date_of_birth) == 1) {
+    const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
+    if(loyverseCustomerId == null)
+      throw new Error("Error: no se encontro el id de cliente de loyverse");
+    const email = document.getElementById("email").value;
+    const dateOfBirth = document.getElementById("date_of_birth").value;
+    
+    if (createCustomer(loyverseCustomerId, email, dateOfBirth) == 1) {
         alert ("¡Ocurrio un error al crear el cliente!");
         return;
     }
 
     let scannedCardCode = sessionStorage.getItem("scannedCardCode"); // <---
     try {
-        const linkCardResponse = await fetch(`${cafeLibrePensadorAPIAddress}/Cards/${scannedCardCode}`, {
+        const linkCardResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Cards/${scannedCardCode}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               // Add authentication : 'Authorization': `Bearer ${yourAuthToken}`
             },
-            body: JSON.stringify({
-              customer_email: email
-            })
+            body: JSON.stringify(email)
           });
       
           if (!linkCardResponse.ok) {
