@@ -1,4 +1,5 @@
 import { fillCustomerFormData } from '../fillCustomerData.js';
+import { clearFormFields } from '../formFieldsManipulation.js';
 
 window.addEventListener('DOMContentLoaded', (event) => {
     const form = document.getElementById("customerForm");
@@ -13,8 +14,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
             form.reportValidity();
             return;
         }
-
-        let email = emailInput.value;
+        
+        const email = emailInput.value;
+        const dateOfBirth = dobInput.value;
+        await clearFormFields(form);
+        emailInput.value = email;
+        dobInput.value = dateOfBirth;
         if (await fillCustomerFormData(email) == undefined) {
             alert ( "No se encontro ningun cliente con el email: " + email );
             return;
@@ -23,3 +28,4 @@ window.addEventListener('DOMContentLoaded', (event) => {
         linkButton.disabled = false;
     });
 });
+

@@ -32,8 +32,8 @@
             <div class="mb-3">
               <label for="email" class="form-label">Email del cliente</label>
               <div class="input-group mb-3">
-                <input type="email" class="form-control" id="email" required>
-                <button class="btn btn-outline-primary" type="submit">Buscar</button>
+                <input type="email" class="form-control" id="email" oninput="emailChanged()" required>
+                <button class="btn btn-outline-primary" id="btnSearchEmail" type="submit">Buscar</button>
               </div>
             </div>
             <div class="mb-3">
@@ -57,9 +57,15 @@
                 <input type="date" class="form-control" id="date_of_birth">
             </div>
 
-            <button onclick="makeCustomer_CardLink()" class="btn btn-primary" id="btnLinkCardAndCusotmer" disabled>Enlazar cliente con esta tarjeta</button>
+            <input type="button" onclick="makeCustomer_CardLink()" class="btn btn-primary" id="btnLinkCardAndCusotmer" disabled value="Enlazar cliente con esta tarjeta">
         </form>
     </main>
+    <script>
+        function emailChanged() {
+            document.getElementById("date_of_birth").required = false;
+            document.getElementById("btnLinkCardAndCusotmer").disabled = true;
+        }
+    </script>
     <script src="../scripts/apiCredentials.js"></script>
     <script type="module">
         import { makeCustomer_CardLink } from "../scripts/customer-CardLink/makeCustomer-CardLink.js";

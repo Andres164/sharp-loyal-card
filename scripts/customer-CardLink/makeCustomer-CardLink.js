@@ -1,4 +1,4 @@
-import { disableFormFields } from "../disableFormFields.js";
+import { disableFormFields } from "../formFieldsManipulation.js";
 
 async function createCustomer(loyverseCustomerId, email, date_of_birth) {
     try {
@@ -26,8 +26,10 @@ async function createCustomer(loyverseCustomerId, email, date_of_birth) {
 
 export async function makeCustomer_CardLink() {
   const form = document.getElementById("customerForm")
-  if(!form.checkValidity())
+  if(!form.checkValidity()) {
+    form.reportValidity();
     return 1;
+  }
   const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
   if(loyverseCustomerId == null)
     throw new Error("Error: no se encontro el id de cliente de loyverse");
@@ -56,7 +58,6 @@ export async function makeCustomer_CardLink() {
     console.error(error);
     return 1;
   }
-  document.getElementById("btnLinkCardAndCusotmer").disabled = true;
   disableFormFields(form);
   alert("La tarjeta a sido enlazada con el cliente con email: " + email);
   return 0;
