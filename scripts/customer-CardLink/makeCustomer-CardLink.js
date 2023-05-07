@@ -59,6 +59,6 @@ export async function makeCustomer_CardLink() {
     return 1;
   }
   disableFormFields(form);
-  alert("La tarjeta a sido enlazada con el cliente con email: " + email);
+  alert("La tarjeta a sido enlazada EXITOSAMENTE con el cliente con email: " + email);
   return 0;
 }
