@@ -8,7 +8,7 @@ export async function getCustomerFromLoyverse(email) {
             }
         });
     
-        if(!getCustomerRespons.ok == null)
+        if(!getCustomerRespons.ok)
             throw new Error(`Error getting the customer from loyverse: ${getCustomerRespons.status}`)
         return getCustomerRespons.json();
     } catch(error) {

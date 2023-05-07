@@ -6,7 +6,7 @@ export async function fillCustomerFormData(email) {
     let customer = await getCustomer(email);
     if(customer === null)
       customer = await getCustomerFromLoyverse(email);
-    if(customer == null)
+    if(customer === null)
       return null;
 
     sessionStorage.setItem("loyverseCustomerId", customer.loyverseCustomerId);

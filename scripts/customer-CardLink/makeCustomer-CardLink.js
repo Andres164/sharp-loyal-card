@@ -1,4 +1,4 @@
-
+import { disableFormFields } from "../disableFormFields.js";
 
 async function createCustomer(loyverseCustomerId, email, date_of_birth) {
     try {
@@ -24,35 +24,40 @@ async function createCustomer(loyverseCustomerId, email, date_of_birth) {
     return 0;
 }
 
-async function makeCustomer_CardLink() {
-    const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
-    if(loyverseCustomerId == null)
-      throw new Error("Error: no se encontro el id de cliente de loyverse");
-    const email = document.getElementById("email").value;
-    const dateOfBirth = document.getElementById("date_of_birth").value;
+export async function makeCustomer_CardLink() {
+  const form = document.getElementById("customerForm")
+  if(!form.checkValidity())
+    return 1;
+  const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
+  if(loyverseCustomerId == null)
+    throw new Error("Error: no se encontro el id de cliente de loyverse");
+  const email = document.getElementById("email").value;
+  const dateOfBirth = document.getElementById("date_of_birth").value;
+  
+  if (await createCustomer(loyverseCustomerId, email, dateOfBirth) == 1) {
+      alert ("¡Ocurrio un error al crear el cliente!");
+      return;
+  }
+  let scannedCardCode = sessionStorage.getItem("scannedCardCode"); // <---
+  try {
+      const linkCardResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Cards/${scannedCardCode}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            // Add authentication : 'Authorization': `Bearer ${yourAuthToken}`
+          },
+          body: JSON.stringify(email)
+        });
     
-    if (createCustomer(loyverseCustomerId, email, dateOfBirth) == 1) {
-        alert ("¡Ocurrio un error al crear el cliente!");
-        return;
-    }
-
-    let scannedCardCode = sessionStorage.getItem("scannedCardCode"); // <---
-    try {
-        const linkCardResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Cards/${scannedCardCode}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              // Add authentication : 'Authorization': `Bearer ${yourAuthToken}`
-            },
-            body: JSON.stringify(email)
-          });
-      
-          if (!linkCardResponse.ok) {
-            throw new Error(`Error linking card: ${linkCardResponse.status}`);
-          }
-    } catch (error) {
-      console.error(error);
-      return 1;
-    }
-    return 0;
+        if (!linkCardResponse.ok) {
+          throw new Error(`Error linking card: ${linkCardResponse.status}`);
+        }
+  } catch (error) {
+    console.error(error);
+    return 1;
+  }
+  document.getElementById("btnLinkCardAndCusotmer").disabled = true;
+  disableFormFields(form);
+  alert("La tarjeta a sido enlazada con el cliente con email: " + email);
+  return 0;
 }
