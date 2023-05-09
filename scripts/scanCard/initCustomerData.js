@@ -2,15 +2,14 @@ import { fillCustomerFormData } from '../fillCustomerData.js';
 import { getCard } from '../getCard.js';
 import { getCustomer } from '../getCustomers.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const card_id = sessionStorage.getItem('scannedCardCode');
     if (!card_id) {
-        alert('No hay QR escaneado');
-        window.history.back();
+      alert('No hay QR escaneado');
+      returnToScanCard();
     }
-    if (fillCustomerFormDataByCardId(card_id) == undefined) {
-        window.history.back();
-    }
+    if (await fillCustomerFormDataByCardId(card_id) == undefined)
+      returnToScanCard();
 });
 
 async function fillCustomerFormDataByCardId(card_id) {

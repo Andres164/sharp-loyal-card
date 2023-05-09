@@ -54,12 +54,12 @@
                 <input type="text" class="form-control" id="date_of_birth" disabled>
             </div>
 
-            <button type="button" class="btn btn-primary" onclick="goBack()">Escanear otra tarjeta</button>
+            <button type="button" class="btn btn-primary" onclick="returnToScanCard()">Escanear otra tarjeta</button>
         </form>
     </main>
     <script>
-        function goBack() {
-            window.history.back();
+        function returnToScanCard() {
+            window.location.href = "scanCard.html";
         }
     </script>
     <script src="../scripts/apiCredentials.js"></script>

@@ -23,7 +23,7 @@
         }
     </style>
 </head>
-<body onload="tryFillCustomerData()">
+<body>
     <main class="container">
         <div class="container rounded-top banner">
             <img class="" src="../IMGs/librePensador2.webp" height="19%" width="19%">
@@ -31,7 +31,7 @@
         <form class="shadow p-3 mb-5 bg-body rounded" id="customerForm">
             <div class="mb-3">
               <label for="email" class="form-label">Email del cliente</label>
-              <input type="email" class="form-control" id="email" required>
+              <input type="email" class="form-control" id="email" disabled>
             </div>
             <div class="mb-3">
               <label for="name" class="form-label">Nombre del cliente</label>
@@ -55,40 +55,45 @@
             </div>
             <div class="mb-3">
                 <label for="pointsToAdd" class="form-label">Puntos que se van a añadir</label>
-                <input type="number" class="form-control" id="pointsToAdd">
+                <input min="1" step="1" type="number" class="form-control" id="pointsToAdd" required>
             </div>
 
-            <button onclick="tryUpdateCustomerPoints()" type="submit" class="btn btn-primary" id="btnAddPointsToCard" disabled>Añadir puntos a la tarjeta</button>
+            <button onclick="tryUpdateCustomerPoints(event)"class="btn btn-primary" id="btnAddPointsToCard">Añadir puntos a la tarjeta</button>
         </form>
     </main>
-    <script>
-        function tryFillCustomerData() {
-            let card_id = sessionStorage.getItem("scannedCardCode");
-            if(!isCardLinked(card_id)) {
-                alert("La tarjeta escaneada no a sido enlazada con un cliente, favor de escanear una tarjeta valida");
-                window.location.href = rootFolder + "addPointsToCard/scanner.html";
+    <script src="../scripts/apiCredentials.js"></script>
+    <script type="module" src="../scripts/scanCard/initCustomerData.js"></script>
+    <script type="module">
+        import { addToCustomerPoints } from '../scripts/updateCustomerPoints.js';
+
+        async function tryUpdateCustomerPoints(event) {
+            event.preventDefault();
+
+            const form = document.getElementById("customerForm");
+            if(!form.checkValidity()) {
+                form.reportValidity();
                 return;
             }
+                
 
-            if ( fillCustomerFormData(email) == undefined ) {
-                window.location.href = rootFolder + "addPointsToCard/scanner.html";
+            const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
+            if(loyverseCustomerId == null) {
+                alert("Error inesperado: no se pudo obtener el loyverseCustomerId");
                 return;
             }
+            const pointsToAdd = document.getElementById("pointsToAdd").value;
 
-            document.getElementById("pointsToAdd").required = true;
-            document.getElementById("btnAddPointsToCard").disabled = false;
-
-        }
-
-        function tryUpdateCustomerPoints() {
-            if(!document.getElementById("customerForm").checkValidity())
+            const updatedCsutomerBalance = await addToCustomerPoints(loyverseCustomerId, pointsToAdd);
+            if(updatedCsutomerBalance == null) {
+                alert("Error inesperado: ocurrio un error al intentar actualizar los puntos del cliente");
                 return;
-            addToCustomerPoints(document.getElementById("pointsToAdd"), document.getElementById("email"));
+            }
+            const customerEmail = document.getElementById("email").value;
+            alert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCsutomerBalance}`)
+            window.location.href = "scanner.html";
         }
+
+        window.tryUpdateCustomerPoints = tryUpdateCustomerPoints;
     </script>
-    <script src="../scripts/include.js"></script>
-    <script src="../scripts/fillCustomerData.js"></script>
-    <script src="../scripts/cardStatus.js"></script>
-    <script src="../scripts/updateCustomerPoints.js"></script>
 </body>
 </html>
