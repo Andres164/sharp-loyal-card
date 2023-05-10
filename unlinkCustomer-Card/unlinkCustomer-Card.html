@@ -53,12 +53,8 @@
                 <label for="date_of_birth" class="form-label">Fecha de nacimiento</label>
                 <input type="text" class="form-control" id="date_of_birth" disabled>
             </div>
-            <div class="mb-3">
-                <label for="pointsToAdd" class="form-label">Puntos que se van a añadir</label>
-                <input min="1" step="1" type="number" class="form-control" id="pointsToAdd" required>
-            </div>
 
-            <button onclick="tryUpdateCustomerPoints(event)"class="btn btn-primary" id="btnAddPointsToCard">Añadir puntos a la tarjeta</button>
+            <button onclick="tryUnlinkCustomerFromCard(event)"class="btn btn-primary" id="btnUnlinkCustomerfromCard">Des enlazar cliente de la tarjeta</button>
             <input type="button" onclick="returnToScanner()" class="btn btn-secondary" value="Cancelar">
         </form>
     </main>
@@ -68,34 +64,24 @@
         document.addEventListener('DOMContentLoaded', () => initCustomerData("scanner.html"));
     </script>
     <script type="module">
-        import { addToCustomerPoints } from '../scripts/updateCustomerPoints.js';
+        import { updateCard } from '../scripts/updateCard.js';
 
-        async function tryUpdateCustomerPoints(event) {
+        async function tryUnlinkCustomerFromCard(event) {
             event.preventDefault();
 
-            const form = document.getElementById("customerForm");
-            if(!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-                
-
-            const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
-            if(loyverseCustomerId == null) {
-                alert("Error inesperado: no se pudo obtener el loyverseCustomerId");
-                returnToScanner();
-                return;
-            }
-            const pointsToAdd = document.getElementById("pointsToAdd").value;
-
-            const updatedCsutomerBalance = await addToCustomerPoints(loyverseCustomerId, pointsToAdd);
-            if(updatedCsutomerBalance == null) {
+            const cardId = sessionStorage.getItem("scannedCardCode");
+            const updatedCard = await updateCard(cardId, null);
+            if(updatedCard == null) {
                 alert("Error inesperado: ocurrio un error al intentar actualizar los puntos del cliente");
                 returnToScanner();
                 return;
             }
-            const customerEmail = document.getElementById("email").value;
-            alert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCsutomerBalance}`)
+            if(updatedCard.customerEmail != null)  {
+                alert("Error inesperado: la tarjeta no fue desenlazada correctamente");
+                returnToScanner();
+                return;
+            }
+            alert(`La tarjeta escaneada fue desenlazada del cliente con email: ${updateCard.customerEmail}`);
             returnToScanner();
         }
 
@@ -104,7 +90,7 @@
         }
 
         window.returnToScanner = returnToScanner;
-        window.tryUpdateCustomerPoints = tryUpdateCustomerPoints;
+        window.tryUnlinkCustomerFromCard = tryUnlinkCustomerFromCard;
     </script>
 </body>
 </html>
