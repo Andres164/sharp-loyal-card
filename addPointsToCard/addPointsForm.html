@@ -59,10 +59,15 @@
             </div>
 
             <button onclick="tryUpdateCustomerPoints(event)"class="btn btn-primary" id="btnAddPointsToCard">Añadir puntos a la tarjeta</button>
+            <button onclick="returnToScanner()" class="btn btn-primary">Cancelar</button>
         </form>
     </main>
     <script src="../scripts/apiCredentials.js"></script>
-    <script type="module" src="../scripts/scanCard/initCustomerData.js"></script>
+    <script type="module">
+        import { initCustomerData } from '../scripts/scanCard/initCustomerData.js';
+
+        document.addEventListener('DOMContentLoaded', () => initCustomerData("scanner.html"));
+    </script>
     <script type="module">
         import { addToCustomerPoints } from '../scripts/updateCustomerPoints.js';
 
@@ -79,6 +84,7 @@
             const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
             if(loyverseCustomerId == null) {
                 alert("Error inesperado: no se pudo obtener el loyverseCustomerId");
+                returnToScanner();
                 return;
             }
             const pointsToAdd = document.getElementById("pointsToAdd").value;
@@ -86,13 +92,19 @@
             const updatedCsutomerBalance = await addToCustomerPoints(loyverseCustomerId, pointsToAdd);
             if(updatedCsutomerBalance == null) {
                 alert("Error inesperado: ocurrio un error al intentar actualizar los puntos del cliente");
+                returnToScanner();
                 return;
             }
             const customerEmail = document.getElementById("email").value;
             alert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCsutomerBalance}`)
+            returnToScanner();
+        }
+
+        function returnToScanner() {
             window.location.href = "scanner.html";
         }
 
+        window.returnToScanner = returnToScanner;
         window.tryUpdateCustomerPoints = tryUpdateCustomerPoints;
     </script>
 </body>

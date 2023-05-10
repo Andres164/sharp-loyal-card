@@ -63,6 +63,10 @@
         }
     </script>
     <script src="../scripts/apiCredentials.js"></script>
-    <script type="module" src="../scripts/scanCard/initCustomerData.js"></script>
+    <script type="module">
+        import { initCustomerData } from '../scripts/scanCard/initCustomerData.js';
+
+        document.addEventListener('DOMContentLoaded', () => initCustomerData("scanCard.html"));
+    </script>
 </body>
 </html>
