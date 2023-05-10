@@ -1,5 +1,6 @@
 import { disableFormFields } from "../formFieldsManipulation.js";
 import { cafeLibrePensadorAPIAddress } from '../apiAddress.js';
+import { updateCard } from '../updateCard.js';
 
 async function createCustomer(loyverseCustomerId, email, date_of_birth) {
     try {
@@ -41,25 +42,14 @@ export async function makeCustomer_CardLink() {
       alert ("¡Ocurrio un error al crear el cliente!");
       return;
   }
-  let scannedCardCode = sessionStorage.getItem("scannedCardCode"); // <---
-  try {
-      const linkCardResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Cards/${scannedCardCode}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            // Add authentication : 'Authorization': `Bearer ${yourAuthToken}`
-          },
-          body: JSON.stringify(email)
-        });
-    
-        if (!linkCardResponse.ok) {
-          throw new Error(`Error linking card: ${linkCardResponse.status}`);
-        }
-  } catch (error) {
-    console.error(error);
+  const scannedCardCode = sessionStorage.getItem("scannedCardCode"); // <---
+  const updatedCard = await updateCard(scannedCardCode, email);
+  if(updatedCard == null) {
+    alert("Error inesperado: Ocurrio un error inesperado al intentar actualizar la tarjeta");
     return 1;
   }
   disableFormFields(form);
   alert("La tarjeta a sido enlazada EXITOSAMENTE con el cliente con email: " + email);
+  document.location.href = "customer-CardLink.html";
   return 0;
 }

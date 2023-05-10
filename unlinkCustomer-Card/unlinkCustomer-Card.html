@@ -54,25 +54,30 @@
                 <input type="text" class="form-control" id="date_of_birth" disabled>
             </div>
 
-            <button onclick="tryUnlinkCustomerFromCard(event)"class="btn btn-primary" id="btnUnlinkCustomerfromCard">Des enlazar cliente de la tarjeta</button>
+            <button onclick="tryUnlinkCustomerFromCard(event)"class="btn btn-primary" id="btnAction" disabled>Des enlazar cliente de la tarjeta</button>
             <input type="button" onclick="returnToScanner()" class="btn btn-secondary" value="Cancelar">
         </form>
     </main>
     <script type="module">
         import { initCustomerData } from '../scripts/scanCard/initCustomerData.js';
 
-        document.addEventListener('DOMContentLoaded', () => initCustomerData("scanner.html"));
+        document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
     </script>
     <script type="module">
         import { updateCard } from '../scripts/updateCard.js';
+        import { deleteCustomer } from '../scripts/deleteCustomer.js';
 
         async function tryUnlinkCustomerFromCard(event) {
             event.preventDefault();
 
             const cardId = sessionStorage.getItem("scannedCardCode");
+            const customerEmail = document.getElementById("email").value;
+            
             const updatedCard = await updateCard(cardId, null);
-            if(updatedCard == null) {
-                alert("Error inesperado: ocurrio un error al intentar actualizar los puntos del cliente");
+            const deletedCustomer = await deleteCustomer(customerEmail);
+
+            if(updatedCard == null || deletedCustomer == null) {
+                alert("Error inesperado: ocurrio un error al intentar desenlazar la tarjeta del cliente");
                 returnToScanner();
                 return;
             }
@@ -81,7 +86,13 @@
                 returnToScanner();
                 return;
             }
-            alert(`La tarjeta escaneada fue desenlazada del cliente con email: ${updateCard.customerEmail}`);
+            if(deletedCustomer.email != customerEmail) {
+                alert("Error inesperado: el cliente eliminado no es el cliente que estaba enlazado a la tarjeta escaneada \n Cliente eliminado: " + deletedCustomer.email);
+                returnToScanner();
+                return;
+            }
+
+            alert(`La tarjeta escaneada fue desenlazada exitosamente del cliente con email: ${ deletedCustomer.email }`);
             returnToScanner();
         }
 

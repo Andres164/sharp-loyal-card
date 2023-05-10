@@ -58,14 +58,14 @@
                 <input min="1" step="1" type="number" class="form-control" id="pointsToAdd" required>
             </div>
 
-            <button onclick="tryUpdateCustomerPoints(event)"class="btn btn-primary" id="btnAddPointsToCard">Añadir puntos a la tarjeta</button>
+            <button onclick="tryUpdateCustomerPoints(event)"class="btn btn-primary" id="btnAction" disabled>Añadir puntos a la tarjeta</button>
             <input type="button" onclick="returnToScanner()" class="btn btn-secondary" value="Cancelar">
         </form>
     </main>
     <script type="module">
         import { initCustomerData } from '../scripts/scanCard/initCustomerData.js';
 
-        document.addEventListener('DOMContentLoaded', () => initCustomerData("scanner.html"));
+        document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
     </script>
     <script type="module">
         import { addToCustomerPoints } from '../scripts/updateCustomerPoints.js';
