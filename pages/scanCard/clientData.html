@@ -7,7 +7,7 @@
     <title>Informacion del cliente</title>
     <link rel="stylesheet"
           type="text/css"
-          href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+          href="../../node_modules/bootstrap/dist/css/bootstrap.css"/>
     <style>
         main { 
             margin-top: 2%;
@@ -26,15 +26,12 @@
 <body>
     <main class="container">
         <div class="container rounded-top banner">
-            <img class="" src="../IMGs/librePensador2.webp" height="19%" width="19%">
+            <img class="" src="../../IMGs/librePensador2.webp" height="19%" width="19%">
         </div>
-        <form class="shadow p-3 mb-5 bg-body rounded" id="customerForm">
+        <form class="shadow p-3 mb-5 bg-body rounded">
             <div class="mb-3">
-              <label for="email" class="form-label">Email del cliente</label>
-              <div class="input-group mb-3">
-                <input type="email" class="form-control" id="email" oninput="emailChanged()" required>
-                <button class="btn btn-outline-primary" id="btnSearchEmail" type="submit">Buscar</button>
-              </div>
+              <label for="id_customer" class="form-label">Email del cliente</label>
+              <input type="email" class="form-control" id="email" disabled>
             </div>
             <div class="mb-3">
               <label for="name" class="form-label">Nombre del cliente</label>
@@ -49,27 +46,21 @@
                 <input type="text" class="form-control" id="address" disabled>
             </div>
             <div class="mb-3">
-                <label for="total_points" class="form-label">Total de puntos</label>
+                <label for="total_points" class="form-label">Puntos</label>
                 <input type="text" class="form-control" id="total_points" disabled>
             </div>
             <div class="mb-3">
                 <label for="date_of_birth" class="form-label">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="date_of_birth">
+                <input type="text" class="form-control" id="date_of_birth" disabled>
             </div>
 
-            <input type="button" onclick="makeCustomer_CardLink()" class="btn btn-primary" id="btnLinkCardAndCusotmer" disabled value="Enlazar cliente con esta tarjeta">
+            <button type="button" class="btn btn-primary" onclick="window.location.href = 'scanner.html';">Escanear otra tarjeta</button>
         </form>
     </main>
-    <script>
-        function emailChanged() {
-            document.getElementById("date_of_birth").required = false;
-            document.getElementById("btnLinkCardAndCusotmer").disabled = true;
-        }
-    </script>
     <script type="module">
-        import { makeCustomer_CardLink } from "../scripts/customer-CardLink/makeCustomer-CardLink.js";
-        window.makeCustomer_CardLink = makeCustomer_CardLink;
+        import { initCustomerData } from '../../scripts/common/initCustomerData.js';
+
+        document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
     </script>
-    <script type="module" src="../scripts/customer-CardLink/tryFillCustomerData.js"></script>
 </body>
 </html>

@@ -11,18 +11,19 @@
             text-align: center; 
             margin-top: 5%;
         }
+        a {
+            margin-top: 2%;
+        }
     </style>
 </head>
 <body>
     <main class="container align-self-center">
-        <h1>Nombre y apellidos</h1>
-        <h2>Puntos: 0000</h2>
         <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 2rem;">
-            <button class="btn btn-primary btn-lg" onclick="scanCard()">Escanear otra tarjeta</button>
+            <a class="btn btn-primary btn-lg" href="pages/addPointsToCard/scanner.html">Añadir puntos a un cliente</a>
+            <a class="btn btn-primary btn-lg" href="pages/scanCard/scanner.html">Escanear tarjeta</a>
+            <a class="btn btn-primary btn-lg" href="pages/unlinkCustomer-Card/scanner.html">Des enlazar cliente de una tarjeta</a>
+            <a class="btn btn-primary btn-lg" href="pages/customer-CardLink/scanner.html">Enlazar cliente a una tarjeta</a>
         </div>
-        <div id="scanner" width="600px"></div>
     </main>
-    <script src="scripts/include.js"></script>
-    <script src="scripts/cardScanner.js"></script>
 </body>
 </html>

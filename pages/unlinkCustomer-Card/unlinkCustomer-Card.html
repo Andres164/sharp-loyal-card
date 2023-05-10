@@ -7,7 +7,7 @@
     <title>Informacion del cliente</title>
     <link rel="stylesheet"
           type="text/css"
-          href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+          href="../../node_modules/bootstrap/dist/css/bootstrap.css"/>
     <style>
         main { 
             margin-top: 2%;
@@ -26,7 +26,7 @@
 <body>
     <main class="container">
         <div class="container rounded-top banner">
-            <img class="" src="../IMGs/librePensador2.webp" height="19%" width="19%">
+            <img class="" src="../../IMGs/librePensador2.webp" height="19%" width="19%">
         </div>
         <form class="shadow p-3 mb-5 bg-body rounded" id="customerForm">
             <div class="mb-3">
@@ -58,50 +58,6 @@
             <input type="button" onclick="returnToScanner()" class="btn btn-secondary" value="Cancelar">
         </form>
     </main>
-    <script type="module">
-        import { initCustomerData } from '../scripts/scanCard/initCustomerData.js';
-
-        document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
-    </script>
-    <script type="module">
-        import { updateCard } from '../scripts/updateCard.js';
-        import { deleteCustomer } from '../scripts/deleteCustomer.js';
-
-        async function tryUnlinkCustomerFromCard(event) {
-            event.preventDefault();
-
-            const cardId = sessionStorage.getItem("scannedCardCode");
-            const customerEmail = document.getElementById("email").value;
-            
-            const updatedCard = await updateCard(cardId, null);
-            const deletedCustomer = await deleteCustomer(customerEmail);
-
-            if(updatedCard == null || deletedCustomer == null) {
-                alert("Error inesperado: ocurrio un error al intentar desenlazar la tarjeta del cliente");
-                returnToScanner();
-                return;
-            }
-            if(updatedCard.customerEmail != null)  {
-                alert("Error inesperado: la tarjeta no fue desenlazada correctamente");
-                returnToScanner();
-                return;
-            }
-            if(deletedCustomer.email != customerEmail) {
-                alert("Error inesperado: el cliente eliminado no es el cliente que estaba enlazado a la tarjeta escaneada \n Cliente eliminado: " + deletedCustomer.email);
-                returnToScanner();
-                return;
-            }
-
-            alert(`La tarjeta escaneada fue desenlazada exitosamente del cliente con email: ${ deletedCustomer.email }`);
-            returnToScanner();
-        }
-
-        function returnToScanner() {
-            window.location.href = "scanner.html";
-        }
-
-        window.returnToScanner = returnToScanner;
-        window.tryUnlinkCustomerFromCard = tryUnlinkCustomerFromCard;
-    </script>
+    <script type="module" src="../../scripts/unlinkCustomer-Card/unlinkCustomer-Card.js"></script>
 </body>
 </html>

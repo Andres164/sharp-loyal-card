@@ -1,5 +1,6 @@
-import { getCard } from "./getCard.js";
-const rootFolder = document.location.origin + "/sharp-loyal-card/";
+import { getCard } from "./api/getCard.js";
+
+const rootFolder = '../../';
 let SCANNER;
 
 async function onScanSuccess(decodedText, decodedResult, shouldRedirect) {

@@ -9,14 +9,16 @@ export async function getCustomer(email) {
                 //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
             }
         });
-        if(getCustomerResponse.status >= 500) 
-            throw new Error(`Error getting customer: ${getCustomerResponse.status}`);
+        if(getCustomerResponse.status >= 500) {
+            console.error(`Error getting customer: ${getCustomerResponse.status}`);
+            return undefined;
+        }
         if(getCustomerResponse.status >= 400)
             return null;
         const customerData = await getCustomerResponse.json();
         return customerData;
     } catch (error) {
-        console.error(error);
+        console.error(`Unexpected error while getting customer: ${error}`);
         return null;
     }
 }

@@ -1,4 +1,4 @@
-import { fillCustomerFormDataByCardId } from '../fillCustomerData.js';
+import { fillCustomerFormDataByCardId } from './fillCustomerData.js';
 
 export async function initCustomerData(returnPathOnError) {
   const card_id = sessionStorage.getItem('scannedCardCode');

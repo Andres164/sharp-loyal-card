@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>des enlasar cliente con una tarjeta</title>
+    <title>Añadir puntos a un cliente</title>
     <style>
         main {
             text-align: center; 
@@ -19,10 +19,11 @@
         <div id="scanner" width="600px"></div>
     </main>
     
-    <script src="../node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+    <script src="../../node_modules/html5-qrcode/html5-qrcode.min.js"></script>
     <script type="module">
-        import { scanCardAndRedirectOnSuccess } from "../scripts/cardScanner.js"; 
-        scanCardAndRedirectOnSuccess('unlinkCustomer-Card/unlinkCustomer-Card.html');
+        import { scanCardAndRedirectOnSuccess } from "../../scripts/common/cardScanner.js"; 
+
+        scanCardAndRedirectOnSuccess('pages/addPointsToCard/addPointsForm.html');
     </script>
 </body>
 </html>

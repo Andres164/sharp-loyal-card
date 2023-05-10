@@ -7,7 +7,7 @@
     <title>Informacion del cliente</title>
     <link rel="stylesheet"
           type="text/css"
-          href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+          href="../../node_modules/bootstrap/dist/css/bootstrap.css"/>
     <style>
         main { 
             margin-top: 2%;
@@ -26,7 +26,7 @@
 <body>
     <main class="container">
         <div class="container rounded-top banner">
-            <img class="" src="../IMGs/librePensador2.webp" height="19%" width="19%">
+            <img class="" src="../../IMGs/librePensador2.webp" height="19%" width="19%">
         </div>
         <form class="shadow p-3 mb-5 bg-body rounded" id="customerForm">
             <div class="mb-3">
@@ -62,49 +62,6 @@
             <input type="button" onclick="returnToScanner()" class="btn btn-secondary" value="Cancelar">
         </form>
     </main>
-    <script type="module">
-        import { initCustomerData } from '../scripts/scanCard/initCustomerData.js';
-
-        document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
-    </script>
-    <script type="module">
-        import { addToCustomerPoints } from '../scripts/updateCustomerPoints.js';
-
-        async function tryUpdateCustomerPoints(event) {
-            event.preventDefault();
-
-            const form = document.getElementById("customerForm");
-            if(!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-                
-
-            const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
-            if(loyverseCustomerId == null) {
-                alert("Error inesperado: no se pudo obtener el loyverseCustomerId");
-                returnToScanner();
-                return;
-            }
-            const pointsToAdd = document.getElementById("pointsToAdd").value;
-
-            const updatedCsutomerBalance = await addToCustomerPoints(loyverseCustomerId, pointsToAdd);
-            if(updatedCsutomerBalance == null) {
-                alert("Error inesperado: ocurrio un error al intentar actualizar los puntos del cliente");
-                returnToScanner();
-                return;
-            }
-            const customerEmail = document.getElementById("email").value;
-            alert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCsutomerBalance}`)
-            returnToScanner();
-        }
-
-        function returnToScanner() {
-            window.location.href = "scanner.html";
-        }
-
-        window.returnToScanner = returnToScanner;
-        window.tryUpdateCustomerPoints = tryUpdateCustomerPoints;
-    </script>
+    <script type="module" src="../../scripts/addPointsToCard/addPointsForm.js"></script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
-import { ServerError } from './errors.js';
 
 export async function deleteCustomer(customerEmail) {
     try {
@@ -21,7 +20,7 @@ export async function deleteCustomer(customerEmail) {
         const deletedCustomerData = await deleteCustomerResponse.json();
         return deletedCustomerData;
     } catch (error) {
-        console.error("Caught an Unexpected Error while deliting a customer: ", error)
+        console.error(`Caught an Unexpected Error while deleting a customer: ${error}`)
         return undefined;
     }
 }

@@ -10,14 +10,16 @@ export async function getCustomerFromLoyverse(email) {
             }
         });
     
-        if(getCustomerRespons.status >= 500)
-            throw new Error(`Error getting the customer from loyverse: ${getCustomerRespons.status}`)
+        if(getCustomerRespons.status >= 500) {
+            console.error(`Error getting the customer from loyverse: ${getCustomerRespons.status}`);
+            return undefined;
+        }
         if(getCustomerRespons.status >= 400)
             return null;
         const customerData = await getCustomerRespons.json();
         return customerData;
     } catch(error) {
-        console.error(error);
+        console.error(`Unexpected error while getting customer from loyverse: ${error}`);
         return undefined;
     }
     

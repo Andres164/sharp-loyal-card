@@ -1,30 +1,7 @@
-import { disableFormFields } from "../formFieldsManipulation.js";
-import { cafeLibrePensadorAPIAddress } from '../apiAddress.js';
-import { updateCard } from '../updateCard.js';
+import { disableFormFields } from "../common/formFieldsManipulation.js";
+import { createCustomer } from '../common/api/createCustomer.js';
+import { updateCard } from '../common/api/updateCard.js';
 
-async function createCustomer(loyverseCustomerId, email, date_of_birth) {
-    try {
-        const createCustomerResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Customers`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-          //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
-        },
-        body: JSON.stringify({
-          loyverseCustomerId: loyverseCustomerId,
-          email: email,
-          dateOfBirth: date_of_birth
-        })
-        });
-    
-      if (!createCustomerResponse.ok)
-        throw new Error(`Error creating customer: ${createCustomerResponse.status}`);
-    } catch (error) {
-        console.error(error);
-        return 1;
-    }
-    return 0;
-}
 
 export async function makeCustomer_CardLink() {
   const form = document.getElementById("customerForm")
@@ -38,7 +15,7 @@ export async function makeCustomer_CardLink() {
   const email = document.getElementById("email").value;
   const dateOfBirth = document.getElementById("date_of_birth").value;
   
-  if (await createCustomer(loyverseCustomerId, email, dateOfBirth) == 1) {
+  if (await createCustomer(loyverseCustomerId, email, dateOfBirth) == null) {
       alert ("¡Ocurrio un error al crear el cliente!");
       return;
   }
@@ -50,6 +27,8 @@ export async function makeCustomer_CardLink() {
   }
   disableFormFields(form);
   alert("La tarjeta a sido enlazada EXITOSAMENTE con el cliente con email: " + email);
-  document.location.href = "customer-CardLink.html";
+  document.location.href = "scanner.html";
   return 0;
 }
+
+window.makeCustomer_CardLink = makeCustomer_CardLink;

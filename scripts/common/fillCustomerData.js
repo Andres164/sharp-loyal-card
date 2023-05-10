@@ -1,5 +1,5 @@
-import { getCard } from './getCard.js';
-import { getCustomer } from './getCustomers.js';
+import { getCard } from './api/getCard.js';
+import { getCustomer } from './api/getCustomers.js';
 
 export async function fillCustomerFormData(customer) {
     sessionStorage.setItem("loyverseCustomerId", customer.loyverseCustomerId);

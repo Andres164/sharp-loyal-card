@@ -1,7 +1,14 @@
-import { fillCustomerFormData } from '../fillCustomerData.js';
-import { clearFormFields } from '../formFieldsManipulation.js';
-import { getCustomerFromLoyverse } from '../getCustomerFromLoyverse.js'
-import { getCustomer } from '../getCustomers.js';
+import { fillCustomerFormData } from '../common/fillCustomerData.js';
+import { clearFormFields } from '../common/formFieldsManipulation.js';
+import { getCustomerFromLoyverse } from '../common/api/getCustomerFromLoyverse.js'
+import { getCustomer } from '../common/api/getCustomers.js';
+
+export function emailChanged() {
+    document.getElementById("date_of_birth").required = false;
+    document.getElementById("btnLinkCardAndCusotmer").disabled = true;
+}
+window.emailChanged = emailChanged;
+
 
 window.addEventListener('DOMContentLoaded', (event) => {
     const form = document.getElementById("customerForm");
@@ -26,13 +33,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
         if(await getCustomer(email)) {
             alert(`El cliente con email: ${email} ya a sido enlazado con otra tarjeta`);
-            return
+            return;
         }
 
         const customer = await getCustomerFromLoyverse(email);
         if(customer === undefined) {
             alert("Error inesperado al intentar buscar el cliente");
-            return
+            return;
         }
         if (customer === null) {
             alert ( "No se encontro ningun cliente con el email: " + email );

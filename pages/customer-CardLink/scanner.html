@@ -18,9 +18,10 @@
     <main class="container align-self-center">
         <div id="scanner" width="600px"></div>
     </main>
-    <script src="../node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+    <script src="../../node_modules/html5-qrcode/html5-qrcode.min.js"></script>
     <script type="module">
-        import { scanCardAndRedirectOnSuccess } from "../scripts/cardScanner.js"; 
+        import { scanCardAndRedirectOnSuccess } from "../../scripts/common/cardScanner.js";
+        
         async function cardIsntLinkedToCustomer(card) {
             if(card.customerEmail == null)
                 return true;
@@ -28,7 +29,7 @@
             return false
         }
 
-        scanCardAndRedirectOnSuccess('customer-CardLink/customer-CardLinkForm.html', cardIsntLinkedToCustomer);
+        scanCardAndRedirectOnSuccess('pages/customer-CardLink/customer-CardLink.html', cardIsntLinkedToCustomer);
     </script>
 </body>
 </html>
