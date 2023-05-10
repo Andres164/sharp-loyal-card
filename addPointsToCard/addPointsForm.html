@@ -51,7 +51,7 @@
             </div>
             <div class="mb-3">
                 <label for="date_of_birth" class="form-label">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="date_of_birth" disabled>
+                <input type="text" class="form-control" id="date_of_birth" disabled>
             </div>
             <div class="mb-3">
                 <label for="pointsToAdd" class="form-label">Puntos que se van a añadir</label>
@@ -59,10 +59,9 @@
             </div>
 
             <button onclick="tryUpdateCustomerPoints(event)"class="btn btn-primary" id="btnAddPointsToCard">Añadir puntos a la tarjeta</button>
-            <button onclick="returnToScanner()" class="btn btn-primary">Cancelar</button>
+            <button onclick="returnToScanner()" class="btn btn-secondary">Cancelar</button>
         </form>
     </main>
-    <script src="../scripts/apiCredentials.js"></script>
     <script type="module">
         import { initCustomerData } from '../scripts/scanCard/initCustomerData.js';
 

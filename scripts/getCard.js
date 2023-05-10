@@ -1,4 +1,5 @@
 import { ServerError } from "./errors.js";
+import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
 
 export async function getCard(card_id) {
     try {

@@ -1,0 +1,1 @@
+export const cafeLibrePensadorAPIAddress = 'https://localhost:7068';

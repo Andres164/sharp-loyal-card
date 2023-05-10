@@ -1,3 +1,5 @@
+import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
+
 export async function getCustomer(email) {
     try {
         const getCustomerResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/customers/${email}`, {
