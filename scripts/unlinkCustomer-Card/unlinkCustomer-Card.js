@@ -1,6 +1,7 @@
 import { updateCard } from '../common/api/updateCard.js';
 import { deleteCustomer } from '../common/api/deleteCustomer.js';
 import { initCustomerData } from '../common/initCustomerData.js';
+import * as customAlerts from '../common/customAlerts.js';
 
 document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
 
@@ -12,21 +13,21 @@ async function tryUnlinkCustomerFromCard(event) {
     const updatedCard = await updateCard(cardId, null);
     const deletedCustomer = await deleteCustomer(customerEmail);
     if(updatedCard == null || deletedCustomer == null) {
-        alert("Error inesperado: ocurrio un error al intentar desenlazar la tarjeta del cliente");
+        customAlerts.errorAlert("Ocurrio un error al intentar desenlazar la tarjeta del cliente");
         returnToScanner();
         return;
     }
     if(updatedCard.customerEmail != null)  {
-        alert("Error inesperado: la tarjeta no fue desenlazada correctamente");
+        customAlerts.errorAlert("Ocurrio un error, la tarjeta no fue desenlazada correctamente");
         returnToScanner();
         return;
     }
     if(deletedCustomer.email != customerEmail) {
-        alert("Error inesperado: el cliente eliminado no es el cliente que estaba enlazado a la tarjeta escaneada \n Cliente eliminado: " + deletedCustomer.email);
+        customAlerts.errorAlert(`Ocurrio un error, el cliente eliminado no es el cliente que estaba enlazado a la tarjeta escaneada \n Cliente eliminado: ${deletedCustomer.email}`);
         returnToScanner();
         return;
     }
-    alert(`La tarjeta escaneada fue desenlazada exitosamente del cliente con email: ${ deletedCustomer.email }`);
+    customAlerts.successAlert(`La tarjeta escaneada fue desenlazada exitosamente del cliente con email: 0${ deletedCustomer.email }`);
     returnToScanner();
 }
 function returnToScanner() {

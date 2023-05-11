@@ -13,23 +13,13 @@
             padding-right: 20%;
         }
     </style>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <main class="container align-self-center">
         <div id="scanner" width="600px"></div>
     </main>
     <script src="../../node_modules/html5-qrcode/html5-qrcode.min.js"></script>
-    <script type="module">
-        import { scanCardAndRedirectOnSuccess } from "../../scripts/common/cardScanner.js";
-        
-        async function cardIsntLinkedToCustomer(card) {
-            if(card.customerEmail == null)
-                return true;
-            alert("Esta tarjeta ya esta enlazada con un cliente");
-            return false
-        }
-
-        scanCardAndRedirectOnSuccess('pages/customer-CardLink/customer-CardLink.html', cardIsntLinkedToCustomer);
-    </script>
+    <script type="module" src="../../scripts/customer-CardLink/scanner.js"></script>
 </body>
 </html>

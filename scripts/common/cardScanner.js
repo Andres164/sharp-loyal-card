@@ -1,4 +1,5 @@
 import { getCard } from "./api/getCard.js";
+import * as customAlerts from './customAlerts.js';
 
 const rootFolder = '../../';
 let SCANNER;
@@ -6,11 +7,11 @@ let SCANNER;
 async function onScanSuccess(decodedText, decodedResult, shouldRedirect) {
   const getCardResult = await getCard(decodedText);
   if(getCardResult === undefined) {
-    alert("Se encontro un error al buscar la tarjeta escaneada");
+    customAlerts.errorAlert("Ocurrio un error al buscar la tarjeta escaneada");
     return;
   }
   if(getCardResult === null) {
-    alert("La tarjeta escaneada no existe");
+    customAlerts.warningAlert("La tarjeta escaneada no existe");
     return;
   }
   

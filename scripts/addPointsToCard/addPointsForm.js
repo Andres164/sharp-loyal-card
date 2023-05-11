@@ -1,5 +1,6 @@
 import { addToCustomerPoints } from '../common/api/updateCustomerPoints.js';
 import { initCustomerData } from '../common/initCustomerData.js';
+import * as customAlerts from '../common/customAlerts.js';
 
 document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
 
@@ -14,7 +15,7 @@ async function tryUpdateCustomerPoints(event) {
 
     const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
     if(loyverseCustomerId == null) {
-        alert("Error inesperado: no se pudo obtener el loyverseCustomerId");
+        customAlerts.errorAlert("No se pudo obtener el loyverseCustomerId", "Error inesperado");
         returnToScanner();
         return;
     }
@@ -22,12 +23,12 @@ async function tryUpdateCustomerPoints(event) {
 
     const updatedCsutomerBalance = await addToCustomerPoints(loyverseCustomerId, pointsToAdd);
     if(updatedCsutomerBalance == null) {
-        alert("Error inesperado: ocurrio un error al intentar actualizar los puntos del cliente");
+        customAlerts.errorAlert("Ocurrio un error al intentar actualizar los puntos del cliente", "Error inesperado");
         returnToScanner();
         return;
     }
     const customerEmail = document.getElementById("email").value;
-    alert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCsutomerBalance}`)
+    customAlerts.successAlert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCsutomerBalance}`);
     returnToScanner();
 }
 

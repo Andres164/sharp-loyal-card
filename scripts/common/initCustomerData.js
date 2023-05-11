@@ -1,9 +1,10 @@
 import { fillCustomerFormDataByCardId } from './fillCustomerData.js';
+import * as customAlerts from './customAlerts.js';
 
 export async function initCustomerData(returnPathOnError) {
   const card_id = sessionStorage.getItem('scannedCardCode');
   if (!card_id) {
-    alert('No hay QR escaneado');
+    customAlerts.errorAlert('No hay QR escaneado');
     window.location.href = returnPathOnError;
     return;
   }
