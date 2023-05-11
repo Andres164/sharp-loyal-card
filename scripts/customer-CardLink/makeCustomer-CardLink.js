@@ -12,24 +12,24 @@ export async function makeCustomer_CardLink() {
   }
   const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
   if(loyverseCustomerId == null) {
-    customAlerts.errorAlert("No se encontro el id del cliente de loyverse");
+    await customAlerts.errorAlert("No se encontro el id del cliente de loyverse");
     return 1;
   }
   const email = document.getElementById("email").value;
   const dateOfBirth = document.getElementById("date_of_birth").value;
   
   if (await createCustomer(loyverseCustomerId, email, dateOfBirth) == null) {
-      customAlerts.errorAlert("¡Ocurrio un error al crear el cliente!");
+      await customAlerts.errorAlert("¡Ocurrio un error al crear el cliente!");
       return 1;
   }
   const scannedCardCode = sessionStorage.getItem("scannedCardCode"); // <---
   const updatedCard = await updateCard(scannedCardCode, email);
   if(updatedCard == null) {
-    customAlerts.errorAlert("Ocurrio un error al intentar actualizar la tarjeta!");
+    await customAlerts.errorAlert("Ocurrio un error al intentar actualizar la tarjeta!");
     return 1;
   }
   disableFormFields(form);
-  customAlerts.successAlert(`La tarjeta a sido enlazada al cliente con email: ${email}`)
+  await customAlerts.successAlert(`La tarjeta a sido enlazada al cliente con email: ${email}`)
     .then(() => {
         document.location.href = "scanner.html";
     });

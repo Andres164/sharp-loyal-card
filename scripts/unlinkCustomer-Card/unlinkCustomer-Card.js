@@ -13,21 +13,21 @@ async function tryUnlinkCustomerFromCard(event) {
     const updatedCard = await updateCard(cardId, null);
     const deletedCustomer = await deleteCustomer(customerEmail);
     if(updatedCard == null || deletedCustomer == null) {
-        customAlerts.errorAlert("Ocurrio un error al intentar desenlazar la tarjeta del cliente");
+        await customAlerts.errorAlert("Ocurrio un error al intentar desenlazar la tarjeta del cliente");
         returnToScanner();
         return;
     }
     if(updatedCard.customerEmail != null)  {
-        customAlerts.errorAlert("Ocurrio un error, la tarjeta no fue desenlazada correctamente");
+        await customAlerts.errorAlert("Ocurrio un error, la tarjeta no fue desenlazada correctamente");
         returnToScanner();
         return;
     }
     if(deletedCustomer.email != customerEmail) {
-        customAlerts.errorAlert(`Ocurrio un error, el cliente eliminado no es el cliente que estaba enlazado a la tarjeta escaneada \n Cliente eliminado: ${deletedCustomer.email}`);
+        await customAlerts.errorAlert(`Ocurrio un error, el cliente eliminado no es el cliente que estaba enlazado a la tarjeta escaneada \n Cliente eliminado: ${deletedCustomer.email}`);
         returnToScanner();
         return;
     }
-    customAlerts.successAlert(`La tarjeta escaneada fue desenlazada exitosamente del cliente con email: 0${ deletedCustomer.email }`);
+    await customAlerts.successAlert(`La tarjeta escaneada fue desenlazada exitosamente del cliente con email: ${ deletedCustomer.email }`);
     returnToScanner();
 }
 function returnToScanner() {

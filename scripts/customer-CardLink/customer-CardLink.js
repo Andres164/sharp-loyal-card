@@ -33,17 +33,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
         dobInput.value = dateOfBirth;   
 
         if(await getCustomer(email)) {
-            customAlerts.warningAlert(`El cliente con email: ${email} ya a sido enlazado con otra tarjeta`);
+            await customAlerts.warningAlert(`El cliente con email: ${email} ya a sido enlazado con otra tarjeta`);
             return;
         }
 
         const customer = await getCustomerFromLoyverse(email);
         if(customer === undefined) {
-            customAlerts.errorAlert("Ocurrio un error al intentar buscar el cliente en loyverse");
+            await customAlerts.errorAlert("Ocurrio un error al intentar buscar el cliente en loyverse");
             return;
         }
         if (customer === null) {
-            customAlerts.warningAlert( "No se encontro ningun cliente con el email: " + email );
+            await customAlerts.warningAlert( "No se encontro ningun cliente con el email: " + email );
             return;
         }
         fillCustomerFormData(customer);

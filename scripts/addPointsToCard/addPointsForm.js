@@ -15,7 +15,7 @@ async function tryUpdateCustomerPoints(event) {
 
     const loyverseCustomerId = sessionStorage.getItem("loyverseCustomerId");
     if(loyverseCustomerId == null) {
-        customAlerts.errorAlert("No se pudo obtener el loyverseCustomerId", "Error inesperado");
+        await customAlerts.errorAlert("No se pudo obtener el loyverseCustomerId", "Error inesperado");
         returnToScanner();
         return;
     }
@@ -23,12 +23,12 @@ async function tryUpdateCustomerPoints(event) {
 
     const updatedCsutomerBalance = await addToCustomerPoints(loyverseCustomerId, pointsToAdd);
     if(updatedCsutomerBalance == null) {
-        customAlerts.errorAlert("Ocurrio un error al intentar actualizar los puntos del cliente", "Error inesperado");
+        await customAlerts.errorAlert("Ocurrio un error al intentar actualizar los puntos del cliente", "Error inesperado");
         returnToScanner();
         return;
     }
     const customerEmail = document.getElementById("email").value;
-    customAlerts.successAlert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCsutomerBalance}`);
+    await customAlerts.successAlert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCsutomerBalance}`);
     returnToScanner();
 }
 

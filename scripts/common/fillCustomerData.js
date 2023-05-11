@@ -15,16 +15,16 @@ export async function fillCustomerFormData(customer) {
 export async function fillCustomerFormDataByCardId(card_id) {
     const card = await getCard(card_id);
     if (card == null) {
-      customAlerts.warningAlert("No se encontro ninguna tarjeta con el QR escaneado");
+      await customAlerts.warningAlert("No se encontro ninguna tarjeta con el QR escaneado");
       return undefined;
     }
     if(card.customerEmail == null) {
-      customAlerts.warningAlert("La tarjeta escaneada no a sido enlazada a ningun cliente");
+      await customAlerts.warningAlert("La tarjeta escaneada no a sido enlazada a ningun cliente");
       return null
     }
     const customer = await getCustomer(card.customerEmail);
     if(customer == null) {
-      customAlerts.errorAlert("No se encontro el cliente enlazado con esta tarjeta", 'Error Inesperado');
+      await customAlerts.errorAlert("No se encontro el cliente enlazado con esta tarjeta", 'Error Inesperado');
       return undefined;
     }
     fillCustomerFormData(customer);

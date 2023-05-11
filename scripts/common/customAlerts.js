@@ -6,7 +6,7 @@ export function successAlert(message, title = 'Operacion exitosa') {
     });
 }
 
-export function errorAlert(message, title = 'Ocurrio un error inesperado') {
+export function errorAlert(message, title = 'Error inesperado') {
     return Swal.fire({
         icon: 'error',
         title: title,
