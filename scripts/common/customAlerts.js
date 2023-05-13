@@ -1,3 +1,5 @@
+import { sendErrorLog } from "./api/sendErrorLog.js";
+
 export function successAlert(message, title = 'Operacion exitosa') {
     return Swal.fire({
         icon: 'success',
@@ -7,6 +9,9 @@ export function successAlert(message, title = 'Operacion exitosa') {
 }
 
 export function errorAlert(message, title = 'Error inesperado') {
+    const currentTime = new Date().toLocaleString();
+    sendErrorLog(`${title}: ${message}\nAt: ${currentTime}`);
+
     return Swal.fire({
         icon: 'error',
         title: title,
