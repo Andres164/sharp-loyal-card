@@ -1,4 +1,6 @@
 import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
+import { sendErrorLog } from './sendErrorLog.js';
+import { generateErrorMessage } from '../errorMessages.js';
 
 export async function addToCustomerPoints(customerLoyverseId, pointsToAdd) {
     try {
@@ -12,16 +14,19 @@ export async function addToCustomerPoints(customerLoyverseId, pointsToAdd) {
             body: JSON.stringify(pointsToAddFloat)
         });
     
+        const responseJson = await putResponse.json();
         if(putResponse.status >= 500) {
-            console.error(`Error while adding points to a customer: ${getCardResponse.status}`);
+            const errorMessage = generateErrorMessage(`${getCardResponse.status} Error while adding points to a customer`, JSON.stringify(responseJson.errors));
+            sendErrorLog(errorMessage);
             return undefined;
         }            
         if(putResponse.status >= 400)
             return null;
-        const newCustomerBalance = await putResponse.json();
-        return newCustomerBalance;
+
+        return responseJson;
     } catch (error) {
-        console.error(`Caught unexpected while adding points to a customer error: ${error}`);
+        const errorMessage = generateErrorMessage("Caught unexpected error while adding points to a customer", error);
+        sendErrorLog(errorMessage);
         return undefined;
     }
 }

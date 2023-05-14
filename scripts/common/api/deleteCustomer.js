@@ -1,4 +1,6 @@
 import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
+import { sendErrorLog } from './sendErrorLog.js';
+import { generateErrorMessage } from '../errorMessages.js';
 
 export async function deleteCustomer(customerEmail) {
     try {
@@ -10,17 +12,20 @@ export async function deleteCustomer(customerEmail) {
             }
         })
         
+
+        const responseJson = await deleteCustomerResponse.json();
         if(deleteCustomerResponse.status >= 500) {
-            console.error(`Error while deliting customer: ${getCardResponse.status}`);
+            const errorMessage = generateErrorMessage(`${getCardResponse.status} Error while deliting customer `, JSON.stringify(responseJson.errors));
+            sendErrorLog(errorMessage);
             return undefined;
         }
         if(deleteCustomerResponse.status >= 400)
             return null;
     
-        const deletedCustomerData = await deleteCustomerResponse.json();
-        return deletedCustomerData;
+        return responseJson;
     } catch (error) {
-        console.error(`Caught an Unexpected Error while deleting a customer: ${error}`)
+        const errorMessage = generateErrorMessage("Caught an Unexpected Error while deleting a customer", error);
+        sendErrorLog(errorMessage);
         return undefined;
     }
 }

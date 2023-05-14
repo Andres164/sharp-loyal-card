@@ -1,4 +1,6 @@
 import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
+import { sendErrorLog } from './sendErrorLog.js';
+import { generateErrorMessage } from '../errorMessages.js';
 
 export async function getCustomer(email) {
     try {
@@ -9,16 +11,19 @@ export async function getCustomer(email) {
                 //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
             }
         });
+
+        const responseJson = await getCustomerResponse.json();
         if(getCustomerResponse.status >= 500) {
-            console.error(`Error getting customer: ${getCustomerResponse.status}`);
+            const errorMessage = generateErrorMessage(`${getCustomerResponse.status} Error getting customer`, JSON.stringify(responseJson.errors));
+            sendErrorLog(errorMessage);
             return undefined;
         }
         if(getCustomerResponse.status >= 400)
             return null;
-        const customerData = await getCustomerResponse.json();
-        return customerData;
+        return responseJson;
     } catch (error) {
-        console.error(`Unexpected error while getting customer: ${error}`);
-        return null;
+        const errorMessage = generateErrorMessage("Unexpected error while getting customer", error);
+        sendErrorLog(errorMessage);
+        return undefined;
     }
 }

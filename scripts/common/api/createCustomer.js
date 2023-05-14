@@ -1,4 +1,6 @@
+import { generateErrorMessage } from '../errorMessages.js';
 import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
+import { sendErrorLog } from './sendErrorLog.js';
 
 export async function createCustomer(loyverseCustomerId, email, date_of_birth) {
     try {
@@ -13,18 +15,18 @@ export async function createCustomer(loyverseCustomerId, email, date_of_birth) {
           email: email,
           dateOfBirth: date_of_birth
         })
-        });
+      });
     
-      if (createCustomerResponse.status >= 500) {
-        console.error(`Error creating customer: ${createCustomerResponse.status}`);
+      const responseJson = await createCustomerResponse.json();
+      if (!createCustomerResponse.ok) {
+        const errorMessage = generateErrorMessage(`Error creating customer got a ${createCustomerResponse.status} status code`, JSON.stringify(responseJson.errors));
+        sendErrorLog(errorMessage);
         return undefined;
       }
-      if(createCustomerResponse.status >= 400)
-        return null;
-      const createdCustomer = await createCustomerResponse.json();
-      return createdCustomer;
+      return responseJson;
     } catch (error) {
-        console.error(`Unexpected error when creating customer: ${error}`);
+        const errorMessage = generateErrorMessage("Unexpected error when creating customer: ", error);
+        sendErrorLog(errorMessage);
         return undefined;
     }
 }

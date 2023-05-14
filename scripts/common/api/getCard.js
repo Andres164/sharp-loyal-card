@@ -1,4 +1,6 @@
 import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
+import { sendErrorLog } from './sendErrorLog.js';
+import { generateErrorMessage } from '../errorMessages.js';
 
 export async function getCard(card_id) {
     try {
@@ -10,15 +12,18 @@ export async function getCard(card_id) {
             }
         }) 
 
+        const responseJson = await getCardResponse.json();
         if(getCardResponse.status >= 500) {
-            console.error(`Error getting card: ${getCardResponse.status}`);
+            const errorMessage = generateErrorMessage(`${getCardResponse.status} Error getting card`, JSON.stringify(responseJson.errors) );
+            sendErrorLog(errorMessage);
+            return undefined;
         }
         if(getCardResponse.status >= 400)
             return null;
-        const cardData = await getCardResponse.json();
-        return cardData;
+        return responseJson;
     } catch (error) {
-        console.error(`Unexpected error while getting card: ${error}`);
+        const errorMessage = generateErrorMessage("Unexpected error while getting card", error);
+        sendErrorLog(errorMessage);
         return undefined;
     }
 }

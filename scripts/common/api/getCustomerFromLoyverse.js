@@ -1,4 +1,6 @@
 import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
+import { sendErrorLog } from './sendErrorLog.js';
+import { generateErrorMessage } from '../errorMessages.js';
 
 export async function getCustomerFromLoyverse(email) {
     try {
@@ -9,17 +11,19 @@ export async function getCustomerFromLoyverse(email) {
                 //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
             }
         });
-    
+        
+        const responseJson = await getCustomerRespons.json();
         if(getCustomerRespons.status >= 500) {
-            console.error(`Error getting the customer from loyverse: ${getCustomerRespons.status}`);
+            const errorMessage = generateErrorMessage(`${getCustomerRespons.status} Error getting the customer from loyverse`, JSON.stringify(responseJson.errors));
+            sendErrorLog(errorMessage);
             return undefined;
         }
         if(getCustomerRespons.status >= 400)
             return null;
-        const customerData = await getCustomerRespons.json();
-        return customerData;
+        return responseJson;
     } catch(error) {
-        console.error(`Unexpected error while getting customer from loyverse: ${error}`);
+        const errorMessage = generateErrorMessage("Unexpected error while getting customer from loyverse", error);
+        sendErrorLog(errorMessage);
         return undefined;
     }
     

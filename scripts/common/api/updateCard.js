@@ -1,4 +1,6 @@
 import { cafeLibrePensadorAPIAddress } from "./apiAddress.js";
+import { sendErrorLog } from './sendErrorLog.js';
+import { generateErrorMessage } from '../errorMessages.js';
 
 export async function updateCard(cardId, updatedEmail) {
     try {
@@ -11,17 +13,19 @@ export async function updateCard(cardId, updatedEmail) {
             body: JSON.stringify({customerEmail: updatedEmail})
         });
     
+        const responseJson = await updateCardResponse.json();
         if(updateCardResponse.status >= 500) {
-            console.error(`Error while updating card: ${getCardResponse.status}`);
+            const errorMessage = generateErrorMessage(`${getCardResponse.status} Error while updating card`, JSON.stringify(responseJson.errors));
+            sendErrorLog(errorMessage);
             return undefined;
         }
         if(updateCardResponse.status >= 400)
             return null;
         
-        const updateCard = await updateCardResponse.json();
-        return updateCard;
+        return responseJson;
     } catch (error) {
-        console.error(`Caught unexpected error while updating card: ${error}`);
+        const errorMessage = generateErrorMessage("Caught unexpected error while updating card", error);
+        sendErrorLog(errorMessage);
         return undefined;
     }
 }
