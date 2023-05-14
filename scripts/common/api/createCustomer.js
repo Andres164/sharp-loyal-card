@@ -20,13 +20,13 @@ export async function createCustomer(loyverseCustomerId, email, date_of_birth) {
       const responseJson = await createCustomerResponse.json();
       if (!createCustomerResponse.ok) {
         const errorMessage = generateErrorMessage(`Error creating customer got a ${createCustomerResponse.status} status code`, JSON.stringify(responseJson.errors));
-        sendErrorLog(errorMessage);
+        await sendErrorLog(errorMessage);
         return undefined;
       }
       return responseJson;
     } catch (error) {
         const errorMessage = generateErrorMessage("Unexpected error when creating customer: ", error);
-        sendErrorLog(errorMessage);
+        await sendErrorLog(errorMessage);
         return undefined;
     }
 }

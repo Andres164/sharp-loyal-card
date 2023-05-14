@@ -15,7 +15,7 @@ export async function getCustomer(email) {
         const responseJson = await getCustomerResponse.json();
         if(getCustomerResponse.status >= 500) {
             const errorMessage = generateErrorMessage(`${getCustomerResponse.status} Error getting customer`, JSON.stringify(responseJson.errors));
-            sendErrorLog(errorMessage);
+            await sendErrorLog(errorMessage);
             return undefined;
         }
         if(getCustomerResponse.status >= 400)
@@ -23,7 +23,7 @@ export async function getCustomer(email) {
         return responseJson;
     } catch (error) {
         const errorMessage = generateErrorMessage("Unexpected error while getting customer", error);
-        sendErrorLog(errorMessage);
+        await sendErrorLog(errorMessage);
         return undefined;
     }
 }

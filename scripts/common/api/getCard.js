@@ -15,7 +15,7 @@ export async function getCard(card_id) {
         const responseJson = await getCardResponse.json();
         if(getCardResponse.status >= 500) {
             const errorMessage = generateErrorMessage(`${getCardResponse.status} Error getting card`, JSON.stringify(responseJson.errors) );
-            sendErrorLog(errorMessage);
+            await sendErrorLog(errorMessage);
             return undefined;
         }
         if(getCardResponse.status >= 400)
@@ -23,7 +23,7 @@ export async function getCard(card_id) {
         return responseJson;
     } catch (error) {
         const errorMessage = generateErrorMessage("Unexpected error while getting card", error);
-        sendErrorLog(errorMessage);
+        await sendErrorLog(errorMessage);
         return undefined;
     }
 }

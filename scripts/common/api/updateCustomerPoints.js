@@ -17,7 +17,7 @@ export async function addToCustomerPoints(customerLoyverseId, pointsToAdd) {
         const responseJson = await putResponse.json();
         if(putResponse.status >= 500) {
             const errorMessage = generateErrorMessage(`${getCardResponse.status} Error while adding points to a customer`, JSON.stringify(responseJson.errors));
-            sendErrorLog(errorMessage);
+            await sendErrorLog(errorMessage);
             return undefined;
         }            
         if(putResponse.status >= 400)
@@ -26,7 +26,7 @@ export async function addToCustomerPoints(customerLoyverseId, pointsToAdd) {
         return responseJson;
     } catch (error) {
         const errorMessage = generateErrorMessage("Caught unexpected error while adding points to a customer", error);
-        sendErrorLog(errorMessage);
+        await sendErrorLog(errorMessage);
         return undefined;
     }
 }

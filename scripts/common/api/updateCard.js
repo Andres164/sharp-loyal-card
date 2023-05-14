@@ -16,7 +16,7 @@ export async function updateCard(cardId, updatedEmail) {
         const responseJson = await updateCardResponse.json();
         if(updateCardResponse.status >= 500) {
             const errorMessage = generateErrorMessage(`${getCardResponse.status} Error while updating card`, JSON.stringify(responseJson.errors));
-            sendErrorLog(errorMessage);
+            await sendErrorLog(errorMessage);
             return undefined;
         }
         if(updateCardResponse.status >= 400)
@@ -25,7 +25,7 @@ export async function updateCard(cardId, updatedEmail) {
         return responseJson;
     } catch (error) {
         const errorMessage = generateErrorMessage("Caught unexpected error while updating card", error);
-        sendErrorLog(errorMessage);
+        await sendErrorLog(errorMessage);
         return undefined;
     }
 }
