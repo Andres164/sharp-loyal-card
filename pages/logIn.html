@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Inicio de sesion</title>
+
+    <link rel="stylesheet"
+          type="text/css"
+          href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <link href="../styles/signin.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body class="text-center">
+<main class="form-signin">
+  <form id="mainForm">
+    <img class="mb-4 rounded-3" src="../IMGs/librePensador.jpg" width="150" height="150">
+    <h1 class="h3 mb-3 fw-normal">Inicio de Sesion</h1>
+
+    <div class="form-floating">
+      <input required type="text" class="form-control" id="user" placeholder="Usuario">
+      <label for="floatingInput">Usuario</label>
+    </div>
+    <div class="form-floating">
+      <input required type="password" class="form-control" id="password" placeholder="Password">
+      <label for="floatingPassword">Contraseña</label>
+    </div>
+    <hr>
+    <br>
+    <button onclick="logIn(event)" class="w-100 btn btn-lg btn-primary" id="btnLogIn" type="submit">Iniciar sesion</button>
+  </form>
+</main>
+
+  <script type="module" src="../scripts/logIn/logIn.js"></script>
+  </body>
+</html>

@@ -1,5 +1,3 @@
-import { sendErrorLog } from "./api/sendErrorLog.js";
-
 export function successAlert(message, title = 'Operacion exitosa') {
     return Swal.fire({
         icon: 'success',

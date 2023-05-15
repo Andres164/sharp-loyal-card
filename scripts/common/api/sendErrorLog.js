@@ -2,11 +2,12 @@ import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
 
 export async function sendErrorLog(message) {
     try {
+        const accessToken = sessionStorage.getItem("accessToken");
         const sendErrorResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/send-error-log`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
-                // Use bearer Authentication
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${accessToken}`
             },
             body: JSON.stringify(message)
         });
