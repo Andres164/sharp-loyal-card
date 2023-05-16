@@ -1,4 +1,3 @@
-import { generateErrorMessage } from "../errorMessages.js";
 import { cafeLibrePensadorAPIAddress } from "./apiAddress.js";
 import { sendErrorLog } from "./sendErrorLog.js";
 
@@ -12,27 +11,42 @@ export async function authenticate(username, password) {
               password: password 
              })
         });
-    
+        
         const responseJson = await response.json();
-        let logMessage;
         if(response.status == 401)
-          logMessage = `Someone tried to authenticate whit user: ${username} and API returned ${response.status} status code`;
-        else if(response.status >= 400) {
-          const errorMEssage = generateErrorMessage(`${response.status} Status while trying to authenticate the user`, JSON.stringify(responseJson));
-          await sendErrorLog(errorMEssage);
+          return null;
+        if(response.status >= 400) {
+          console.error(`Got a ${response.status} status code while authenticating the user`);
           return undefined;
         }
-        else if (response.ok) {
-          console.log(responseJson.token);
-          localStorage.setItem('accessToken', responseJson.token);
-          logMessage = `The user ${username} authenticated successfuly`;
-        }
+
+        sessionStorage.setItem('accessToken', responseJson.token);
         // this should be sendLogMessage
-        await sendErrorLog(`${logMessage} \nAt: ${Date.toLocaleString()}`); 
-        return response.ok ? "Successful" : null;
+        const currentTime = new Date().toLocaleString();
+        await sendErrorLog(`The user ${username} authenticated successfuly \nAt: ${ currentTime }`); 
+        return "Successful";
     } catch(error) {
-        const errorMessage = generateErrorMessage("Unexpected error while authenticating: ", error);
-        await sendErrorLog(errorMessage);
+        console.error(`Unexpected error while authenticating: ${ error }`);
         return undefined;
     }
+}
+
+export async function isAuthenticated() {
+  try {
+    const checkAuthResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Authentication/checkIfAuthenticated`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+
+    if(checkAuthResponse.status == 401)
+      return false;
+    if(checkAuthResponse.status >= 400) {
+      console.error(`The API returned status code ${checkAuthResponse.status} while trying to check authentication`);
+      return undefined;
+    }
+    return true;
+  } catch(error) {
+    console.error("Unexpected error while trying to check if client is authenticated");
+    return undefined;
+  }
 }

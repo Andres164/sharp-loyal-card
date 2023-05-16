@@ -25,5 +25,10 @@
             <a class="btn btn-primary btn-lg" href="pages/customer-CardLink/scanner.html">Enlazar cliente a una tarjeta</a>
         </div>
     </main>
+    <script type="module">
+        import { redirectToLogInIfSessionHasExpired } from './scripts/common/checkSession.js';
+
+        await redirectToLogInIfSessionHasExpired();
+    </script>
 </body>
 </html>

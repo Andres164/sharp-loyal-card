@@ -21,7 +21,6 @@ async function logIn(event) {
         await customAlerts.warningAlert("El usuario y/o contraseña son icnorrectos");
         return;
     }
-    await customAlerts.successAlert("Credenciales verificadas Token: " + sessionStorage.getItem("accessToken"));
     document.location.href = "../index.html";
     return;
 }

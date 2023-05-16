@@ -21,14 +21,14 @@ async function tryUpdateCustomerPoints(event) {
     }
     const pointsToAdd = document.getElementById("pointsToAdd").value;
 
-    const updatedCsutomerBalance = await addToCustomerPoints(loyverseCustomerId, pointsToAdd);
-    if(updatedCsutomerBalance == null) {
+    const updatedCustomerBalance = await addToCustomerPoints(loyverseCustomerId, pointsToAdd);
+    if(updatedCustomerBalance == null) {
         await customAlerts.errorAlert("Ocurrio un error al intentar actualizar los puntos del cliente", "Error inesperado");
         returnToScanner();
         return;
     }
     const customerEmail = document.getElementById("email").value;
-    await customAlerts.successAlert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCsutomerBalance}`);
+    await customAlerts.successAlert(`Se le han añadido ${pointsToAdd} puntos al cliente con email: ${customerEmail} \nNuevo Balance: ${updatedCustomerBalance}`);
     returnToScanner();
 }
 
