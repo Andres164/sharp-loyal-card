@@ -23,6 +23,9 @@
     <script src="../../node_modules/html5-qrcode/html5-qrcode.min.js"></script>
     <script type="module">
         import { scanCardAndRedirectOnSuccess } from "../../scripts/common/cardScanner.js"; 
+        import { redirectIfSessionHasExpired } from '../../scripts/common/checkSession.js';
+
+        await redirectIfSessionHasExpired("../logIn.html");
         
         scanCardAndRedirectOnSuccess('pages/unlinkCustomer-Card/unlinkCustomer-Card.html');
     </script>

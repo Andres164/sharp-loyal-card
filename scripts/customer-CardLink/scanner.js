@@ -1,5 +1,8 @@
 import { scanCardAndRedirectOnSuccess } from "../common/cardScanner.js";
+import { redirectIfSessionHasExpired } from '../common/checkSession.js';
 import * as customAlert from '../common/customAlerts.js';
+
+await redirectIfSessionHasExpired("../../pages/logIn.html");
         
 async function cardIsntLinkedToCustomer(card) {
     if(card.customerEmail == null)

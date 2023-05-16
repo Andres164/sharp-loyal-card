@@ -12,7 +12,6 @@ export async function authenticate(username, password) {
              })
         });
         
-        const responseJson = await response.json();
         if(response.status == 401)
           return null;
         if(response.status >= 400) {
@@ -20,7 +19,6 @@ export async function authenticate(username, password) {
           return undefined;
         }
 
-        sessionStorage.setItem('accessToken', responseJson.token);
         // this should be sendLogMessage
         const currentTime = new Date().toLocaleString();
         await sendErrorLog(`The user ${username} authenticated successfuly \nAt: ${ currentTime }`); 
@@ -35,7 +33,8 @@ export async function isAuthenticated() {
   try {
     const checkAuthResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/Authentication/checkIfAuthenticated`, {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
+      credentials: "include"
     });
 
     if(checkAuthResponse.status == 401)

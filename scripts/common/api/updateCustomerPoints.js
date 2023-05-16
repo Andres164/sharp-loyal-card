@@ -9,9 +9,9 @@ export async function addToCustomerPoints(customerLoyverseId, pointsToAdd) {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
-                //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
             },
-            body: JSON.stringify(pointsToAddFloat)
+            body: JSON.stringify(pointsToAddFloat),
+            credentials: "include"
         });
     
         const responseJson = await putResponse.json();

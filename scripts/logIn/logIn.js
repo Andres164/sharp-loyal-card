@@ -21,6 +21,7 @@ async function logIn(event) {
         await customAlerts.warningAlert("El usuario y/o contraseña son icnorrectos");
         return;
     }
+    alert("authenticated");
     document.location.href = "../index.html";
     return;
 }

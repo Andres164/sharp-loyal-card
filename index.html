@@ -26,9 +26,9 @@
         </div>
     </main>
     <script type="module">
-        import { redirectToLogInIfSessionHasExpired } from './scripts/common/checkSession.js';
+        import { redirectIfSessionHasExpired } from './scripts/common/checkSession.js';
 
-        await redirectToLogInIfSessionHasExpired();
+        await redirectIfSessionHasExpired("./pages/logIn.html");
     </script>
 </body>
 </html>

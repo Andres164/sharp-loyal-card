@@ -8,8 +8,8 @@ export async function getCustomerFromLoyverse(email) {
             method : "GET",
             headers: {
                 "Content-Type" : "application/json"
-                //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
-            }
+            },
+            credentials: "include"
         });
         
         const responseJson = await getCustomerRespons.json();

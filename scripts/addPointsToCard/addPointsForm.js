@@ -1,8 +1,12 @@
 import { addToCustomerPoints } from '../common/api/updateCustomerPoints.js';
 import { initCustomerData } from '../common/initCustomerData.js';
+import { redirectIfSessionHasExpired } from '../common/checkSession.js';
 import * as customAlerts from '../common/customAlerts.js';
 
-document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
+document.addEventListener('DOMContentLoaded', async () => {
+    await redirectIfSessionHasExpired("../logIn.html");
+    await initCustomerData("scanner.html")
+});
 
 async function tryUpdateCustomerPoints(event) {
     event.preventDefault();

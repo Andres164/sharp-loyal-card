@@ -3,9 +3,13 @@ import { deleteCustomer } from '../common/api/deleteCustomer.js';
 import { initCustomerData } from '../common/initCustomerData.js';
 import { generateErrorMessage } from '../common/errorMessages.js';
 import { sendErrorLog } from '../common/api/sendErrorLog.js';
+import { redirectIfSessionHasExpired } from '../common/checkSession.js';
 import * as customAlerts from '../common/customAlerts.js';
 
-document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
+document.addEventListener('DOMContentLoaded', async () => {
+    await redirectIfSessionHasExpired("../../pages/logIn.html");
+    await initCustomerData("scanner.html")
+});
 
 async function tryUnlinkCustomerFromCard(event) {
     event.preventDefault();

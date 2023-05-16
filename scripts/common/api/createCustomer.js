@@ -8,13 +8,13 @@ export async function createCustomer(loyverseCustomerId, email, date_of_birth) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-          //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
         },
         body: JSON.stringify({
           loyverseCustomerId: loyverseCustomerId,
           email: email,
           dateOfBirth: date_of_birth
-        })
+        }),
+        credentials: "include"
       });
     
       const responseJson = await createCustomerResponse.json();

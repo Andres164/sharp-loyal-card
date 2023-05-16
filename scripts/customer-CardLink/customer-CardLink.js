@@ -1,8 +1,10 @@
 import { fillCustomerFormData } from '../common/fillCustomerData.js';
 import { clearFormFields } from '../common/formFieldsManipulation.js';
 import { getCustomerFromLoyverse } from '../common/api/getCustomerFromLoyverse.js'
+import { redirectIfSessionHasExpired } from '../common/checkSession.js';
 import { getCustomer } from '../common/api/getCustomers.js';
 import * as customAlerts from '../common/customAlerts.js';
+
 
 export function emailChanged() {
     document.getElementById("date_of_birth").required = false;
@@ -11,7 +13,9 @@ export function emailChanged() {
 window.emailChanged = emailChanged;
 
 
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener('DOMContentLoaded', async (event) => {
+    await redirectIfSessionHasExpired("../../pages/logIn.html");
+    
     const form = document.getElementById("customerForm");
     const emailInput = document.getElementById("email");
     const dobInput = document.getElementById("date_of_birth");

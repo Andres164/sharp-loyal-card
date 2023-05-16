@@ -60,8 +60,12 @@
     </main>
     <script type="module">
         import { initCustomerData } from '../../scripts/common/initCustomerData.js';
+        import { redirectIfSessionHasExpired } from '../../scripts/common/checkSession.js';
 
-        document.addEventListener('DOMContentLoaded', async () => await initCustomerData("scanner.html"));
+        document.addEventListener('DOMContentLoaded', async () => {
+            await redirectIfSessionHasExpired("../logIn.html");
+            await initCustomerData("scanner.html");
+        });
     </script>
 </body>
 </html>

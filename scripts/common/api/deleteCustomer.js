@@ -8,8 +8,8 @@ export async function deleteCustomer(customerEmail) {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json'
-                //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
-            }
+            },
+            credentials: "include"
         })
         
 

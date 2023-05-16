@@ -8,9 +8,9 @@ export async function updateCard(cardId, updatedEmail) {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
-                //  Add authentication:  'Authorization': `Bearer ${yourAuthToken}`
             },
-            body: JSON.stringify({customerEmail: updatedEmail})
+            body: JSON.stringify({customerEmail: updatedEmail}),
+            credentials: "include"
         });
     
         const responseJson = await updateCardResponse.json();
