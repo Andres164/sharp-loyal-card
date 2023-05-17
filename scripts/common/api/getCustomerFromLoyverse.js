@@ -14,7 +14,8 @@ export async function getCustomerFromLoyverse(email) {
         
         const responseJson = await getCustomerRespons.json();
         if(getCustomerRespons.status >= 500) {
-            const errorMessage = generateErrorMessage(`${getCustomerRespons.status} Error getting the customer from loyverse`, JSON.stringify(responseJson.errors));
+            const errorMessage = generateErrorMessage(`${getCustomerRespons.status} Error getting the customer whit email ${email} from loyverse`,
+                                                        JSON.stringify(responseJson.errors));
             await sendErrorLog(errorMessage);
             return undefined;
         }
@@ -22,7 +23,7 @@ export async function getCustomerFromLoyverse(email) {
             return null;
         return responseJson;
     } catch(error) {
-        const errorMessage = generateErrorMessage("Unexpected error while getting customer from loyverse", error);
+        const errorMessage = generateErrorMessage(`Unexpected error while getting customer "${email}" from loyverse`, error);
         await sendErrorLog(errorMessage);
         return undefined;
     }

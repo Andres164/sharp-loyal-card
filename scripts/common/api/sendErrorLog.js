@@ -3,7 +3,7 @@ import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
 export async function sendErrorLog(message) {
     try {
         const accessToken = sessionStorage.getItem("accessToken");
-        const sendErrorResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/send-error-log`, {
+        const sendErrorResponse = await fetch(`${cafeLibrePensadorAPIAddress}/api/ErrorLogs/send-error-log`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

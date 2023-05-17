@@ -3,10 +3,13 @@ import * as customAlerts from '../common/customAlerts.js';
 
 async function logIn(event) {
     event.preventDefault();
+    const btnLogIn = document.getElementById("btnLogIn");
+    btnLogIn.disabled = true;
 
     const form = document.getElementById("mainForm");
     if(!form.checkValidity()) {
         form.reportValidity();
+        btnLogIn.disabled = false;
         return;
     }
 
@@ -15,13 +18,14 @@ async function logIn(event) {
     const authenticationResult = await authenticate(username, password);
     if(authenticationResult === undefined) {
         await customAlerts.errorAlert("Ocurrio un error al tratar de autenticar las credenciales");
+        btnLogIn.disabled = false;
         return;
     }
     if(authenticationResult == null) {
         await customAlerts.warningAlert("El usuario y/o contraseña son icnorrectos");
+        btnLogIn.disabled = false;
         return;
     }
-    alert("authenticated");
     document.location.href = "../index.html";
     return;
 }

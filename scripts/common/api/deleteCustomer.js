@@ -15,7 +15,8 @@ export async function deleteCustomer(customerEmail) {
 
         const responseJson = await deleteCustomerResponse.json();
         if(deleteCustomerResponse.status >= 500) {
-            const errorMessage = generateErrorMessage(`${getCardResponse.status} Error while deliting customer `, JSON.stringify(responseJson.errors));
+            const errorMessage = generateErrorMessage(`${getCardResponse.status} Error while deliting customer, email: ${customerEmail} `,
+                                                        JSON.stringify(responseJson.errors));
             await sendErrorLog(errorMessage);
             return undefined;
         }
@@ -24,7 +25,7 @@ export async function deleteCustomer(customerEmail) {
     
         return responseJson;
     } catch (error) {
-        const errorMessage = generateErrorMessage("Caught an Unexpected Error while deleting a customer", error);
+        const errorMessage = generateErrorMessage(`Caught an Unexpected Error while deleting a customer whit email: ${customerEmail}`, error);
         await sendErrorLog(errorMessage);
         return undefined;
     }
