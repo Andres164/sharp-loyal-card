@@ -4,12 +4,13 @@ import { sendErrorLog } from "./sendErrorLog.js";
 export async function authenticate(username, password) {
     try {
         const response = await fetch(`${cafeLibrePensadorAPIAddress}/api/Authentication/authenticate`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              username: username,
-              password: password 
-             })
+          credentials: "include",
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: username,
+            password: password 
+          })
         });
         
         if(response.status == 401)

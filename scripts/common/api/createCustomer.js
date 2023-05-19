@@ -12,7 +12,7 @@ export async function createCustomer(loyverseCustomerId, email, date_of_birth) {
         body: JSON.stringify({
           loyverseCustomerId: loyverseCustomerId,
           email: email,
-          dateOfBirth: date_of_birth
+          DateOfBirth: date_of_birth
         }),
         credentials: "include"
       });
