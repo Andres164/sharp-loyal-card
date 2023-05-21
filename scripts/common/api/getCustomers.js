@@ -1,6 +1,7 @@
 import { cafeLibrePensadorAPIAddress } from './apiAddress.js';
 import { sendErrorLog } from './sendErrorLog.js';
 import { generateErrorMessage } from '../errorMessages.js';
+import { formatDate } from '../dateFormat.js';
 
 export async function getCustomer(email) {
     try {
@@ -21,6 +22,7 @@ export async function getCustomer(email) {
         }
         if(getCustomerResponse.status >= 400)
             return null;
+        responseJson.dateOfBirth = formatDate(responseJson.dateOfBirth);
         return responseJson;
     } catch (error) {
         const errorMessage = generateErrorMessage(`Unexpected error while getting customer "${email}"`, error);
