@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir puntos a un cliente</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="../../node_modules/bootstrap/dist/css/bootstrap.css"/>
     <style>
         main {
             text-align: center; 
@@ -16,7 +19,10 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+    <div id="header"></div>
     <main class="container align-self-center">
+        <h1>Cargar puntos a una tarjeta</h1>
+        <br>
         <div id="scanner" width="600px"></div>
     </main>
     
@@ -28,5 +34,6 @@
         await redirectIfSessionHasExpired("../logIn.html");
         scanCardAndRedirectOnSuccess('pages/addPointsToCard/addPointsForm.html');
     </script>
+    <script src="../../scripts/common/loadHeader.js"></script>
 </body>
 </html>

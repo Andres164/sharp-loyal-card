@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>des enlasar cliente con una tarjeta</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="../../node_modules/bootstrap/dist/css/bootstrap.css"/>
     <style>
         main {
             text-align: center; 
@@ -16,7 +19,10 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+    <div id="header"></div>
     <main class="container align-self-center">
+        <h1>Des enlazar tarjeta del cliente</h1>
+        <br>
         <div id="scanner" width="600px"></div>
     </main>
     
@@ -29,5 +35,6 @@
         
         scanCardAndRedirectOnSuccess('pages/unlinkCustomer-Card/unlinkCustomer-Card.html');
     </script>
+    <script src="../../scripts/common/loadHeader.js"></script>
 </body>
 </html>

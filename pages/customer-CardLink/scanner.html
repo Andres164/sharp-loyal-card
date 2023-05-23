@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enlasar cliente con una tarjeta</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="../../node_modules/bootstrap/dist/css/bootstrap.css"/>
     <style>
         main {
             text-align: center; 
@@ -16,10 +19,14 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+    <div id="header"></div>
     <main class="container align-self-center">
+        <h1>Enlazar tarjeta con un cliente</h1>
+        <br>
         <div id="scanner" width="600px"></div>
     </main>
     <script src="../../node_modules/html5-qrcode/html5-qrcode.min.js"></script>
     <script type="module" src="../../scripts/customer-CardLink/scanner.js"></script>
+    <script src="../../scripts/common/loadHeader.js"></script>
 </body>
 </html>

@@ -20,31 +20,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small4">
             <li>
-              <a href="#" class="nav-link text-white">
+              <a href="../../index.html" class="nav-link text-white">
                 <i class="bi bi-house d-block mx-auto mb-1 fs-2"></i>
                 <b> Menu </b>
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white d-flex flex-column align-items-center">
+              <a href="../scanCard/scanner.html" class="nav-link text-white d-flex flex-column align-items-center">
                 <i class="bi bi-qr-code-scan d-block mx-auto mb-1 fs-2"></i>
                 <b> Escanear </b>
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white d-flex flex-column align-items-center">
+              <a href="../addPointsToCard/scanner.html" class="nav-link text-white d-flex flex-column align-items-center">
                 <i class="bi bi-credit-card d-block mx-auto mb-1 fs-2"></i>
                 <b> Cargar puntos </b>
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white d-flex flex-column align-items-center">
+              <a href="../customer-CardLink/scanner.html" class="nav-link text-white d-flex flex-column align-items-center">
                 <i class="bi bi-person-add d-block mx-auto mb-1 fs-2"></i>
                 <b> Enlazar </b>
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white d-flex flex-column align-items-center">
+              <a href="../unlinkCustomer-Card/scanner.html" class="nav-link text-white d-flex flex-column align-items-center">
                 <i class="bi bi-person-x d-block mx-auto mb-1 fs-2"></i>
                 <b> Desenlazar </b>
               </a>
