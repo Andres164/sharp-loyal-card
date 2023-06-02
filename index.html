@@ -5,26 +5,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sharp Tarjeta de lealtad</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet"
+          type="text/css"
+          href="node_modules/bootstrap/dist/css/bootstrap.css"/>
     <style>
-        main {
-            text-align: center; 
-            margin-top: 5%;
-        }
         a {
             margin-top: 2%;
+        }
+        .row {
+          margin-top: 2%;
+          margin-bottom: 2%;
+        }
+        .col-4 {
+          margin-left: 1%;
+          margin-right: 1%;
+        }
+        .btn-custom {
+            background-color: maroon;
+            color: white;
+            width: 100%;
+            height: 100%;
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            flex-direction: column;
+        }
+        .btn-custom:hover {
+            color: white;
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
-    <main class="container align-self-center">
-        <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 2rem;">
-            <a class="btn btn-primary btn-lg" href="pages/addPointsToCard/scanner.html">Añadir puntos a un cliente</a>
-            <a class="btn btn-primary btn-lg" href="pages/scanCard/scanner.html">Escanear tarjeta</a>
-            <a class="btn btn-primary btn-lg" href="pages/unlinkCustomer-Card/scanner.html">Des enlazar cliente de una tarjeta</a>
-            <a class="btn btn-primary btn-lg" href="pages/customer-CardLink/scanner.html">Enlazar cliente a una tarjeta</a>
-        </div>
+    <main class="container center-content">
+        <div class="col-12 row justify-content-center">
+            <div class="col-4 d-flex justify-content-center">
+                <a class="btn btn-custom btn-lg text-center" href="pages/addPointsToCard/scanner.html">
+                    <i class="bi bi-credit-card d-block mx-auto mb-1 fs-2"></i>
+                    Añadir puntos a un cliente
+                </a>
+            </div>
+            <div class="col-4 d-flex justify-content-center">
+                <a class="btn btn-custom btn-lg text-center" href="pages/scanCard/scanner.html">
+                    <i class="bi bi-qr-code-scan d-block mx-auto mb-1 fs-1"></i>
+                    Escanear tarjeta
+                </a>
+            </div>
+       </div>
+       <div class="col-12 row justify-content-center">
+            <div class="col-4 d-flex justify-content-center">
+                <a class="btn btn-custom btn-lg text-center" href="pages/unlinkCustomer-Card/scanner.html">
+                    <i class="bi bi-person-add d-block mx-auto mb-1 fs-2"></i>
+                    Des enlazar cliente de una tarjeta
+                </a>
+            </div>
+            <div class="col-4 d-flex justify-content-center">
+                <a class="btn btn-custom btn-lg text-center" href="pages/customer-CardLink/scanner.html">
+                    <i class="bi bi-person-x d-block mx-auto mb-1 fs-2"></i>
+                    Enlazar cliente a una tarjeta
+                </a>
+            </div>
+       </div>
     </main>
+
     <script type="module">
         import { redirectIfSessionHasExpired } from './scripts/common/checkSession.js';
 
