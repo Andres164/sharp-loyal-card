@@ -1,7 +1,7 @@
 export function formatDate(date) {
     const splicedDate = date.split("-");
     if(splicedDate.length != 3)
-        throw error(`Error formatting date: the date ${date} format is not accepted, instead use yyyy-mm-dd`);
+        throw new Error(`Error formatting date: the date ${date}. format is not accepted, instead use yyyy-mm-dd`);
 
     const day = splicedDate[2];
     const month = getMonthName(splicedDate[1]);

@@ -1,1 +1,2 @@
-export const cafeLibrePensadorAPIAddress = 'https://localhost:7068';
+const serverIp = 'localhost';
+export const cafeLibrePensadorAPIAddress = `https://${serverIp}:7068`;

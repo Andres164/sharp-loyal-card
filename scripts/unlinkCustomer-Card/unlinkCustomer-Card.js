@@ -14,10 +14,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function tryUnlinkCustomerFromCard(event) {
     event.preventDefault();
     const cardId = sessionStorage.getItem("scannedCardCode");
-    const customerEmail = document.getElementById("email").value;
+    const emailFieldValue = document.getElementById("email").value;
+    const customerEmail = emailFieldValue.toLowerCase();
     
     const updatedCard = await updateCard(cardId, null);
-    const deletedCustomer = await deleteCustomer(customerEmail);
+    let deletedCustomer = await deleteCustomer(customerEmail);
+    deletedCustomer.email = deletedCustomer.email.toLowerCase();
+
     if(updatedCard == null || deletedCustomer == null) {
         await customAlerts.errorAlert("Ocurrio un error al intentar desenlazar la tarjeta del cliente");
         returnToScanner();
@@ -33,9 +36,9 @@ async function tryUnlinkCustomerFromCard(event) {
     }
     if(deletedCustomer.email != customerEmail) {
         const errorMessage = generateErrorMessage("A customer was wrongfuly deleted in a card unlinking proccess", 
-                                                  `The customer whit Email: ${deleteCustomer.email} was wrongfuly deleted when trying to unlink card whit Id: ${cardId}. 
+                                                  `The customer whit Email: ${deletedCustomer.email} was wrongfuly deleted when trying to unlink card whit Id: ${cardId}. 
                                                    The customer that should have been deleted has email: ${customerEmail} 
-                                                   \nDeleted customer: \nloyverseId ${deletedCustomer.loyverseCustomerId} \nDate of birth: ${deleteCustomer.dateOfBirth}`);
+                                                   \nDeleted customer: \nloyverseId ${deletedCustomer.loyverseCustomerId} \nDate of birth: ${deletedCustomer.dateOfBirth}`);
         await sendErrorLog(errorMessage);
         await customAlerts.errorAlert(`Ocurrio un error, el cliente eliminado no es el cliente que estaba enlazado a la tarjeta escaneada \n Cliente eliminado: ${deletedCustomer.email}`);
         returnToScanner();
