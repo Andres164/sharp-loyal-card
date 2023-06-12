@@ -14,13 +14,17 @@ async function onScanSuccess(decodedText, decodedResult, shouldRedirect) {
     customAlerts.warningAlert("La tarjeta escaneada no existe");
     return;
   }
+  const locationToRedirectOnSuccess = sessionStorage.getItem("locationToRedirectOnSuccess");
+  if(locationToRedirectOnSuccess == null) {
+    await customAlerts.warningAlert("Ocurrio un error al redireccionar, favor de reescanear el QR");
+    return;
+  }
   
   const shouldProceed = typeof shouldRedirect === 'function' ? await shouldRedirect(getCardResult) : true;
   if(!shouldProceed)
     return;
   SCANNER.clear();
   sessionStorage.setItem("scannedCardCode", decodedText);
-  let locationToRedirectOnSuccess = sessionStorage.getItem("locationToRedirectOnSuccess");
   sessionStorage.removeItem("locationToRedirectOnSuccess");
   window.location.href = rootFolder + locationToRedirectOnSuccess;
 }
