@@ -24,7 +24,7 @@ export async function authenticate(username, password) {
         const currentTime = new Date().toLocaleString();
         await sendErrorLog(`The user ${username} authenticated successfuly \nAt: ${ currentTime }`); 
         const responseJson = await response.json();
-        localStorage.setItem("loggedInUserIsAdmin", responseJson.IsAdmin);
+        localStorage.setItem("isLoggedInUserAdmin", responseJson.IsAdmin);
         return "Successful";
     } catch(error) {
         console.error(`Unexpected error while authenticating: ${ error }`);
