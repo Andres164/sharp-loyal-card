@@ -17,6 +17,7 @@ async function onScanSuccess(decodedText, decodedResult, shouldRedirect) {
   const locationToRedirectOnSuccess = sessionStorage.getItem("locationToRedirectOnSuccess");
   if(locationToRedirectOnSuccess == null) {
     await customAlerts.warningAlert("Ocurrio un error al redireccionar, favor de reescanear el QR");
+    location.reload();
     return;
   }
   
